@@ -95,7 +95,7 @@ public class PathUtils {
 	}
 	
 	public static String getUploadPath() {
-		return Setting.BASEFLODER + File.separator + "equipment" + File.separator + "manage";
+		return Setting.BASEFLODER + File.separator + "equipment" + File.separator + "enroll";
 	}
 	
 }

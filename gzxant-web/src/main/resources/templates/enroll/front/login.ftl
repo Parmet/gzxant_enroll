@@ -12,6 +12,8 @@
 	<script src="${rc.contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
 	<script src="${rc.contextPath}/js/plugins/layer/layer.min.js"></script>
 	<script src="${rc.contextPath}/js/util/validate-util.js"></script>
+	<script src="${rc.contextPath}/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="${rc.contextPath}/js/plugins/validate/messages_zh.min.js"></script>
 
 	<style type="text/css">
 		body {
@@ -58,7 +60,7 @@
 
 		.box form {
 			padding: 1rem;
-			margin-top: 4rem;
+			margin-top: 3rem;
 		}
 
 		.btn-block {
@@ -69,6 +71,8 @@
 			border-color: #CC8E12;
 			margin-bottom: 1rem;
 		}
+
+		.em { color: red; font-weight: bold; padding-right: .25em; }
 	</style>
 </head>
 <body>
@@ -77,15 +81,15 @@
 		<h3>登录</h3>
 		<form class="form-horizontal form-inline">
 			<div class="form-group">
-				<label for="accountInput" class="col-xs-3 col-sm-3 col-md-3 control-label">帐号</label>
+				<label for="account" class="col-xs-3 col-sm-3 col-md-3 control-label">帐号</label>
 				<div class="col-xs-9 col-sm-9 col-md-9">
-					<input type="text" class="form-control" id="accountInput" placeholder="请输入帐号">
+					<input type="number" class="form-control" name="account" id="account" placeholder="请输入手机号">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="pwdInput" class="col-xs-3 col-sm-3 col-md-3 control-label">密码</label>
+				<label for="password" class="col-xs-3 col-sm-3 col-md-3 control-label">密码</label>
 				<div class="col-xs-9 col-sm-9 col-md-9">
-					<input type="password" class="form-control" id="pwdInput" placeholder="请输入密码">
+					<input type="password" class="form-control" id="password" maxlength="16" name="password" placeholder="请输入密码">
 				</div>
 			</div>
 		</form>
@@ -94,4 +98,68 @@
 		<button class="btn btn-block btn-info" onclick="login();">确定</button>
 	</div>
 </body>
+<script type="text/javascript">
+	 var login_api = "${rc.contextPath}/api/login";
+	 var vo = $("form").validate({
+		errorElement: 'span',
+		errorClass: 'em',
+		focusInvalid: true,
+		rules: {
+			account: {
+				required: true,
+				number:true,
+				isMobile:true,
+				maxlength:11,
+				maxlength:11
+			},
+			password: {
+				required: true,
+				minlength:6
+			}
+		},
+		messages: {
+			account:{
+				required: "请输入手机号码",
+				number:"只能输入数字",
+				isMobile:"请输入正确的手机号码",
+				maxlength:"请输入11位的手机号码",
+				maxlength:"请输入11位的手机号码"
+			},
+			password:{
+				required:  "请输入密码",
+				minlength:"密码不能小于6位数"
+			}
+		}
+	});
+
+	// 手机号码验证
+	$.validator.addMethod("isMobile", function(value, element) {
+		var length = value.length;
+		var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})|(16[0-9]{9})$/;
+		return this.optional(element) || (length == 11 && mobile.test(value));
+	}, "请正确填写您的手机号码");
+
+	function login() {
+		if (!vo.form()) {
+			return ;
+		}
+
+		$.post(login_api, {
+			"account": $("#account").val(),
+			"password": $("#password").val()
+		}, function(data) {
+			if (validate.isNotEmpty(data)
+				&& data.hasOwnProperty("code")
+				&& data.code == 1000) {
+				window.location.href = "${rc.contextPath}/front/person/" + data.message.id;
+			} else {
+				layer.alert(data.error);
+			}
+		}).error(function(xhr, status, info) {
+			layer.msg("系统繁忙，请稍后重试");
+		});
+    }
+</script>
+
+
 </html>

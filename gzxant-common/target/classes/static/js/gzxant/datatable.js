@@ -213,12 +213,7 @@ function dt_detail_button(row) {
 function dt_insert() {
     dt_action("新增", "insert");
 }
-/**
- * 导入execl
- */
-function dt_import() {
-    dt_action("导入数据", "import");
-}
+
 
 /**
  * 打开编辑框

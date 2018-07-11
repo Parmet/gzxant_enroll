@@ -42,4 +42,5 @@
 		<a href="${rc.contextPath}/front/enroll" class="btn btn-info btn-block">报名</a>
 	</div>
 </body>
+
 </html>

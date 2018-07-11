@@ -67,9 +67,12 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/auditevents/**","anon");
         
         filterChainDefinitionMap.put("/layouts/**","anon");
+        filterChainDefinitionMap.put("/plugins/**/js/**","anon");
+        filterChainDefinitionMap.put("/plugins/**/css/**","anon");
         
-        filterChainDefinitionMap.put("/attach/**","anon");
         filterChainDefinitionMap.put("/front/**","anon");
+        filterChainDefinitionMap.put("/api/**","anon");
+        filterChainDefinitionMap.put("/attach/**","anon");
         
         filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
         filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问

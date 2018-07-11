@@ -34,7 +34,7 @@ public class BaseController{
      * @param  arrayList 内容
      */
     public void ExceptInfo(HttpServletResponse response, String excelTitle, List<String[]> arrayList) throws ParseException {
-        String excelFilePath = "D:\\execl"+ "\\"+Setting.EXCELADDRESS;
+        String excelFilePath = Setting.BASEFLODER+ "/"+Setting.EXCELADDRESS;
 
         Map<String, List<String[]>> map = new HashMap();//导出excel 内容
         map.put(excelTitle, arrayList);

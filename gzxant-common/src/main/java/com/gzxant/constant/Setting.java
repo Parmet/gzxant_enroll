@@ -21,7 +21,7 @@ public class Setting {
     /**
      * 文件根目录
      */
-    public static final String BASEFLODER = File.separator + "app" + File.separator + "attach";
+    public static final String BASEFLODER = File.separator + "var" + File.separator + "file";
     
     /**
      * excel 目录

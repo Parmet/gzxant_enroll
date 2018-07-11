@@ -79,7 +79,7 @@ public class EnrollEnterController extends BaseController {
 	@ApiOperation(value = "查看上传的图片", notes = "查看上传的图片")
 	@PostMapping(value = "/importexecldate")
 	@ResponseBody
-	public ReturnDTO getImageByPath(Model model, @RequestParam("path")String path) throws IOException {
+	public ReturnDTO getImageByPath(Model model,@RequestParam("path")String path) throws IOException {
 		boolean isSuccess = false;
 		try {
 			isSuccess = batchImport(path);
@@ -168,7 +168,8 @@ public class EnrollEnterController extends BaseController {
 
 
 	public boolean batchImport(String fileName) throws Exception {
-
+		File file = new File(fileName);
+		InputStream targetStream = new FileInputStream(file);
 		List<EnrollEnter> userList = new ArrayList<EnrollEnter>();
 		if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
 			throw new Exception("上传文件格式不正确");
@@ -177,86 +178,87 @@ public class EnrollEnterController extends BaseController {
 		if (fileName.matches("^.+\\.(?i)(xlsx)$")) {
 			isExcel2003 = false;
 		}
-		XSSFWorkbook wookbook = new XSSFWorkbook(new FileInputStream(new File(fileName)));
-
-		XSSFSheet sheet = wookbook.getSheet("Sheet1");
-		int rows = sheet.getPhysicalNumberOfRows();
-		EnrollEnter enrollEnter;
-		for (int r = 1; r <= sheet.getLastRowNum(); r++) {
-			Row row = sheet.getRow(r);
-			if (row == null) {
-				continue;
-			}
-			enrollEnter = new EnrollEnter();
-			if (row.getCell(0).getCellType() != 1) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,姓名请设为文本格式)");
-			}
-			//获取参赛者id
-			String id = row.getCell(0).getStringCellValue();
-
-			if (id == null || id.isEmpty()) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,姓名未填写)");
-			}
-
-			row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
-			//姓名
-			String name = row.getCell(1).getStringCellValue();
-			if (name == null || name.isEmpty()) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,电话未填写)");
-			}
-			//获取地点
-			String palce = row.getCell(4).getStringCellValue();
-			if (palce == null) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
-			}
-
-			//获取状态
-			String state = row.getCell(8).getStringCellValue();
-			if (state == null) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
-			}
-
-			//获取分数
-			String fraction = row.getCell(9).getStringCellValue();
-			if (fraction == null) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
-			}
-			//获取歌曲
-			String song = row.getCell(10).getStringCellValue();
-			if (song == null) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
-			}
-			//获取歌曲
-			String type = row.getCell(10).getStringCellValue();
-			if (type == null) {
-				throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
-			}
-			enrollEnter.setName(name);
-			enrollEnter.setPersonnelId(Long.parseLong(id));
-			enrollEnter.setFraction(fraction);
-			enrollEnter.setPlace(palce);
-			if (state.equals("成功")) {
-				enrollEnter.setState("Y");
+			//InputStream is = targetStream.getInputStream();
+			Workbook wb = null;
+			if (isExcel2003) {
+				wb = new HSSFWorkbook(targetStream);
 			} else {
-				enrollEnter.setState("N");
+				wb = new XSSFWorkbook(targetStream);
 			}
+			Sheet sheet = wb.getSheetAt(0);
 
-			userList.add(enrollEnter);
-		}
-		for (EnrollEnter userResord : userList) {
-			enrollEnterService.insert(userResord);
-//
-//			int cnt = enrollEnterService.selectOne(enter);
-//			if (cnt == 0) {
-//				userMapper.addUser(userResord);
-//				System.out.println(" 插入 "+userResord);
-//			} else {
-//				userMapper.updateUserByName(userResord);
-//				System.out.println(" 更新 "+userResord);
-//			}
-		}
-		return true;
-	}
 
+			EnrollEnter enrollEnter;
+			for (int r = 1; r <= sheet.getLastRowNum(); r++) {
+				Row row = sheet.getRow(r);
+				if (row == null) {
+					continue;
+				}
+				enrollEnter = new EnrollEnter();
+				if (row.getCell(0).getCellType() != 1) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,姓名请设为文本格式)");
+				}
+				//获取参赛者id
+				String id = row.getCell(0).getStringCellValue();
+
+				if (id == null || id.isEmpty()) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,姓名未填写)");
+				}
+
+				row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
+				//姓名
+				String name = row.getCell(1).getStringCellValue();
+				if (name == null || name.isEmpty()) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,电话未填写)");
+				}
+				//获取地点
+				String palce = row.getCell(4).getStringCellValue();
+				if (palce == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+
+				//获取状态
+				String state = row.getCell(8).getStringCellValue();
+				if (state == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+
+				//获取分数
+				row.getCell(9).setCellType(Cell.CELL_TYPE_STRING);
+				String fraction = row.getCell(9).getStringCellValue()+"";
+				if (fraction == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+				//获取歌曲
+				String song = row.getCell(10).getStringCellValue();
+				if (song == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+				//获取类型
+				String type = row.getCell(11).getStringCellValue();
+				if (type == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+
+				enrollEnter.setName(name);
+				enrollEnter.setPersonnelId(Long.parseLong(id));
+				enrollEnter.setFraction(fraction);
+				enrollEnter.setPlace(palce);
+				enrollEnter.setSong(song);
+				enrollEnter.setType(type);
+				if (state.equals("成功")) {
+					enrollEnter.setState("Y");
+				} else {
+					enrollEnter.setState("N");
+				}
+
+				userList.add(enrollEnter);
+			}
+			for (EnrollEnter userResord : userList) {
+				enrollEnterService.insert(userResord);
+
+			}
+			return true;
+		}
 
 }

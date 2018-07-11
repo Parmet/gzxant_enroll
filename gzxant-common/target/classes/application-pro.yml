@@ -3,7 +3,7 @@ attach_path: /gzxant/attach/
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://120.78.177.54:3306/gzxant_lease_car?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://120.78.177.54:3306/gzxant_enroll?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: gzxant
     password: gzxant1804
     druid:
@@ -20,10 +20,10 @@ spring:
       poolPreparedStatements: true
       maxOpenPreparedStatements: 100
   redis:
-    database: 0
-    host: 192.168.1.200
+    database: 3
+    host: 127.0.0.1
     port: 6379
-    password: 123456
+    password: gzxant
     pool:
       max-active: 8
       max-wait: -1
