@@ -56,8 +56,13 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">是否发布：<span class="required">*</span></label>
                             <label id="isReleaseLabel" class="col-sm-3">
-                                是  <input type="radio" name="isRelease" value="1"/>&nbsp;&nbsp;&nbsp;
-                                否  <input type="radio" name="isRelease" value="0" checked/>
+                                <#if enrollArticle.isRelease == 1>
+                                    是<input type="radio" name="isRelease" value="1" checked/>&nbsp;&nbsp;&nbsp;
+                                    否<input type="radio" name="isRelease" value="0"/>
+                                <#else>
+                                    是<input type="radio" name="isRelease" value="1" />&nbsp;&nbsp;&nbsp;
+                                    否<input type="radio" name="isRelease" value="0" checked/>
+                                </#if>
                             </label>
                         </div>
 
@@ -129,7 +134,8 @@
     }
 
     function infoNextStep() {
-        var content = $("#contentStr").html();
+        //summernote取值
+        var content = $("#summernote").summernote('code');
         $("#content").val(content);
         info_validate.form();
     }

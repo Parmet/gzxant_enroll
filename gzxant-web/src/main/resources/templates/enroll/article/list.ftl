@@ -45,12 +45,13 @@
     function getcolumns() {
         var c = [
             {
-                checkbox: true
+                checkbox: true,
+                width: 40
             },
             {
                 field: 'name',
                 title: '标题',
-                width: 120
+                width: 250,
             },
             {
                 field: 'subcontent',
@@ -58,7 +59,8 @@
             },
             {
                 field: 'isReleaseStr',
-                title: '发布状态'
+                title: '发布状态',
+                align: 'center'
             },
             {
                 title: '操作',

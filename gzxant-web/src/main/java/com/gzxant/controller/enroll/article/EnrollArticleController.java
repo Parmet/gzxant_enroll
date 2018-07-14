@@ -117,8 +117,16 @@ public class EnrollArticleController {
     @ApiOperation(value = "编辑参赛者信息", notes = "编辑参赛者信息")
     @PostMapping(value = "/update")
     @ResponseBody
-    public ReturnDTO update(EnrollArticle param) {
-        enrollArticleService.updateById(param);
+    public ReturnDTO update(@Valid EnrollArticle enrollArticle, BindingResult result) {
+        if (result.hasErrors()) {
+            List<ObjectError> errors = result.getAllErrors();
+            for (ObjectError error : errors) {
+                System.out.println(result.getFieldError().getDefaultMessage());
+                throw new SdkClientException(HttpCodeEnum.INVALID_REQUEST.getMessage());
+            }
+            return null;
+        }
+        enrollArticleService.updateById(enrollArticle);
         return ReturnDTOUtil.success();
     }
 

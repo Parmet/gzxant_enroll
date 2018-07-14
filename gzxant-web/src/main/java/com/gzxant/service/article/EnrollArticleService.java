@@ -34,7 +34,11 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
             for (EnrollArticle enrollArticle: enrollArticles) {
                 EnrollArticleDTO enrollArticleDTO = new EnrollArticleDTO();
                 enrollArticleDTO.setTitle(enrollArticle.getName());
-                enrollArticleDTO.setContent(enrollArticle.getSubcontent());
+                String subcontent = enrollArticle.getSubcontent();
+                if (subcontent.length() > 16) {
+                    subcontent = subcontent.substring(0,15);
+                }
+                enrollArticleDTO.setContent(subcontent);
                 enrollArticleDTO.setImage(enrollArticle.getImage());
                 enrollArticleDTOs.add(enrollArticleDTO);
             }
@@ -75,8 +79,30 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
             //截取文章详情为简述
             String subcontent = TextUtil.subString(content);
             enrollArticle.setSubcontent(subcontent);
-            System.out.println(subcontent);
         }
         return super.insert(enrollArticle);
+    }
+
+    @Override
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public boolean updateById(EnrollArticle enrollArticle) {
+        Integer isRelease = enrollArticle.getIsRelease();
+        if (isRelease != null && isRelease == 1) {
+            enrollArticle.setReleaseDate(new Timestamp(System.currentTimeMillis()));
+        }
+
+        String content = enrollArticle.getContent();
+        if (!StringUtils.isEmpty(content)) {
+            //获取第一个图片url
+            String image = enrollArticle.getImage();
+            if (image == "") {
+                image = TextUtil.catchImgUrl(content);
+                enrollArticle.setImage(image);
+            }
+            //截取文章详情为简述
+            String subcontent = TextUtil.subString(content);
+            enrollArticle.setSubcontent(subcontent);
+        }
+        return super.updateById(enrollArticle);
     }
 }

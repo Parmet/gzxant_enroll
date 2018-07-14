@@ -25,8 +25,8 @@ public class TextUtil {
                 begin = i + 1;
             }
         }
-        if (all.length() > 16) {
-            all = all.substring(0, 15);
+        if (all.length() > 50) {
+            all = all.substring(0, 49);
             all += "...";
         }
         return all;
