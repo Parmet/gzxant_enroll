@@ -53,9 +53,8 @@
                 width: 120
             },
             {
-                field: 'content',
+                field: 'subcontent',
                 title: '文章内容',
-                width: 20
             },
             {
                 field: 'isReleaseStr',

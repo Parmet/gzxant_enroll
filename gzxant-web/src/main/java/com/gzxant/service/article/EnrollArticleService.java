@@ -52,11 +52,12 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
         enrollArticleDTO.setTitle(enrollArticle.getName());
         enrollArticleDTO.setContent(enrollArticle.getContent());
         enrollArticleDTO.setImage(enrollArticle.getImage());
-        enrollArticleDTO.setReleaseDate();
+        enrollArticleDTO.setReleaseDate(enrollArticle.getReleaseDate());
         return enrollArticleDTO;
     }
 
     @Override
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public boolean insert(EnrollArticle enrollArticle) {
         Integer isRelease = enrollArticle.getIsRelease();
         if (isRelease != null && isRelease == 1) {
