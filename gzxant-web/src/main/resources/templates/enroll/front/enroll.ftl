@@ -65,10 +65,10 @@
 	<div class="box">
 		<form class="form-horizontal form-inline">
 			<div class="form-group">
-				<label for="port" class="col-xs-4 col-sm-4 col-md-4 control-label">地区</label>
+				<label for="place" class="col-xs-4 col-sm-4 col-md-4 control-label">地区</label>
 				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" readonly="" name="port" id="port" placeholder="请选择地区 ">
-					<input type="hidden" name="portId" id="portId" />
+					<input type="text" class="form-control" readonly="" name="place" id="place" placeholder="请选择地区 ">
+					<input type="hidden" name="portId" id="portId"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -98,13 +98,13 @@
 			<div class="form-group">
 				<label for="style" class="col-xs-4 col-sm-4 col-md-4 control-label">演唱风格</label>
 				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="number" class="form-control" name="style" id="style" placeholder="请输入演唱风格">
+					<input type="text" class="form-control" name="style" id="style" placeholder="请输入演唱风格">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="account" class="col-xs-4 col-sm-4 col-md-4 control-label">手机号</label>
 				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="number" class="form-control" name="account" id="account" placeholder="请输入手机号">
+					<input type="number" class="form-control" name="phone" id="phone" placeholder="请输入手机号">
 				</div>
 			</div>
 			<div class="form-group">
@@ -129,12 +129,13 @@
 	</div>
 </body>
 <script type="text/javascript">
-	var pay_api = "${rc.contextPath}/api/pay";
-	var enroll_api = "${rc.contextPath}/api/enroll";
+	var return_url = "${rc.contextPath}/front/index";
+	var pay_api = "http://wings.natapp1.cc/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
+	var enroll_api = "${rc.contextPath}/api/insert";
 
 	var area = new LArea();
 	area.init({
-		'trigger': '#port',//触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+		'trigger': '#place',//触发选择控件的文本框，同时选择完毕后name属性输出到该位置
 		'valueTo':'#portId',//选择完毕后id属性输出到该位置
 		'keys':{id:'id',name:'name'},//绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
 		'type':1,//数据源类型
@@ -171,7 +172,7 @@
             }
 		},
 		messages: {
-			account:{
+			phone:{
 				required: "请输入手机号码",
 				number:"只能输入数字",
 				isMobile:"请输入正确的手机号码",
@@ -366,28 +367,20 @@
 		}
 
 		$.post(enroll_api, {
-			"account": $("#account").val(),
+		    "place": $("#place").val(),
+			"phone": $("#phone").val(),
 			"password": $("#password").val(),
 			"name": $("#name").val(),
 			"company": $("#company").val(),
 			"idCard": $("#idCard").val(),
 			"profession": $("#profession").val(),
-			"style": $("#style").val()
+			"style": $("#style").val(),
+			"openid": "${openid}"
 		}, function(data) {
 			if (validate.isNotEmpty(data)
 				&& data.hasOwnProperty("code")
-				&& data.code == 200) {
-				if (typeof WeixinJSBridge == "undefined"){
-				   if( document.addEventListener ){
-					   document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-				   }else if (document.attachEvent){
-					   document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-					   document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-				   }
-				}else{
-				   //onBridgeReady();
-				}
-
+				&& data.code == 1000) {
+				window.location.href = pay_api;
 				layer.alert("报名成功！");
 			} else {
 				layer.alert(data.error);

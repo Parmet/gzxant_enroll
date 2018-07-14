@@ -22,116 +22,128 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
     /**
      * 参赛者编号id
      */
-	@TableField("personnel_id")
-	private Long personnelId;
+    @TableField("personnel_id")
+    private Long personnelId;
     /**
      * 地址
      */
-	private String place;
+    private String place;
     /**
      * 状态
      */
-	private String state;
+    private String state;
+    /**
+     * 参赛者编号id
+     */
+    private String numbers;
     /**
      * 分数
      */
-	private String fraction;
+    private String fraction;
     /**
      * 歌曲
      */
-	private String song;
+    private String song;
     /**
      * （缴费、报名、海选、复选、冠亚军）
      */
-	private String type;
+    private String type;
     /**
      * 姓名
      */
-	private String name;
-	@TableField("update_id")
-	private Long updateId;
+    private String name;
+    @TableField("update_id")
+    private Long updateId;
 
 
-	public Long getPersonnelId() {
-		return personnelId;
-	}
+    public String getNumbers() {
+        return numbers;
+    }
 
-	public void setPersonnelId(Long personnelId) {
-		this.personnelId = personnelId;
-	}
+    public void setNumbers(String numbers) {
+        this.numbers = numbers;
+    }
 
-	public String getPlace() {
-		return place;
-	}
+    public Long getPersonnelId() {
+        return personnelId;
+    }
 
-	public void setPlace(String place) {
-		this.place = place;
-	}
+    public void setPersonnelId(Long personnelId) {
+        this.personnelId = personnelId;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public String getPlace() {
+        return place;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public void setPlace(String place) {
+        this.place = place;
+    }
 
-	public String getFraction() {
-		return fraction;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public void setFraction(String fraction) {
-		this.fraction = fraction;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public String getSong() {
-		return song;
-	}
+    public String getFraction() {
+        return fraction;
+    }
 
-	public void setSong(String song) {
-		this.song = song;
-	}
+    public void setFraction(String fraction) {
+        this.fraction = fraction;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getSong() {
+        return song;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setSong(String song) {
+        this.song = song;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public Long getUpdateId() {
-		return updateId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setUpdateId(Long updateId) {
-		this.updateId = updateId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public Long getUpdateId() {
+        return updateId;
+    }
 
-	@Override
-	public String toString() {
-		return "EnrollEnter{" +
-			"personnelId=" + personnelId +
-			", place=" + place +
-			", state=" + state +
-			", fraction=" + fraction +
-			", song=" + song +
-			", type=" + type +
-			", name=" + name +
-			", updateId=" + updateId +
-			"}";
-	}
+    public void setUpdateId(Long updateId) {
+        this.updateId = updateId;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "EnrollEnter{" +
+                "personnelId=" + personnelId +
+                ", place=" + place +
+                ", state=" + state +
+                ", fraction=" + fraction +
+                ", song=" + song +
+                ", type=" + type +
+                ", name=" + name +
+                ", updateId=" + updateId +
+                "}";
+    }
 }

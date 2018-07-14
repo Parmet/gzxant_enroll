@@ -1,13 +1,13 @@
 package com.gzxant.util;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * Created by chen on 2017/5/12.
@@ -21,8 +21,27 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";
     private static  Pattern p = Pattern.compile("<([a-zA-Z]+)[^<>]*>");
+    /**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = "/^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})|(16[0-9]{9})$/";
+    /**
+     * 正则表达式：验证用户名
+     */
+    public static final String REGEX_USERNAME = "^[a-zA-Z0-9]\\w{5,20}$";
+    /**
+     * 正则表达式：验证身份证
+     */
+    public static final String REGEX_ID_CARD = "(^\\d{18}$)|(^\\d{15}$)";
 
-
+    /**
+     * 正则表达式：验证密码
+     */
+    public static final String REGEX_PASSWORD = "^[a-zA-Z0-9]{6,20}$";
+    /**
+     * 正则表达式：验证汉字
+     */
+    public static final String REGEX_CHINESE = "^[\u4e00-\u9fa5],{0,}$";
     /**
      * 获取混淆MD5签名用的随机字符串
      * @param length
@@ -37,6 +56,15 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             sb.append(base.charAt(number));
         }
         return sb.toString();
+    }
+    /**
+     * 校验汉字
+     *
+     * @param chinese
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isChinese(String chinese) {
+        return Pattern.matches(REGEX_CHINESE, chinese);
     }
     /**
      * 转换为字节数组
@@ -69,7 +97,43 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             return EMPTY;
         }
     }
+    /**
+     * 校验用户名
+     *
+     * @param username
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isUsername(String username) {
+        return Pattern.matches(REGEX_USERNAME, username);
+    }
 
+    /**
+     * 校验密码
+     *
+     * @param password
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isPassword(String password) {
+        return Pattern.matches(REGEX_PASSWORD, password);
+    }
+    /**
+     * 校验手机号
+     *
+     * @param mobile
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isMobile(String mobile) {
+        return Pattern.matches(REGEX_MOBILE, mobile);
+    }
+    /**
+     * 校验身份证
+     *
+     * @param idCard
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isIDCard(String idCard) {
+        return Pattern.matches(REGEX_ID_CARD, idCard);
+    }
     /**
      * 是否包含字符串
      *
