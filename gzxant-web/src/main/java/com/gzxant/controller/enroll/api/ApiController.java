@@ -50,17 +50,21 @@ public class ApiController extends BaseController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/insert", method = {RequestMethod.POST})
-    public ReturnDTO login(Model model, EnrollPersonnel param) throws IOException {
+    @RequestMapping(value = "/enroll", method = {RequestMethod.POST})
+    public ReturnDTO enroll(Model model, EnrollPersonnel param) throws IOException {
         EnrollEnter enrollEnter = new EnrollEnter();
-        if (StringUtils.isChinese(param.getName())) {
+        if (param == null) {
+            return new ReturnDTO(PARARM_FAIL, "姓名必须是汉字");
+        }
+
+        if (StringUtils.isEmpty(param.getName()) || StringUtils.isChinese(param.getName())) {
             return new ReturnDTO(PARARM_FAIL, "姓名必须是汉字");
         }
         if (StringUtils.isEmpty(param.getPassword())) {
             return new ReturnDTO(PARARM_FAIL, "密码不能为空");
         }
         if (StringUtils.isMobile(param.getPhone())) {
-            return new ReturnDTO(PARARM_FAIL, "请输入正确额密码");
+            return new ReturnDTO(PARARM_FAIL, "请输入正确的手机号码");
         }
         if (StringUtils.isIDCard(param.getIdCard())) {
             return new ReturnDTO(PARARM_FAIL, "请输入18或15位的身份证号码");
@@ -73,13 +77,13 @@ public class ApiController extends BaseController {
         }
         param.setCreateId(Long.parseLong(param.getPhone()));
         param.setUpdateId(Long.parseLong(param.getPhone()));
-
         enrollPersonnelService.insert(param);
+
         enrollEnter.setNumbers(param.getNumbers());
         enrollEnter.setPlace(param.getPlace());
         enrollEnter.setName(param.getName());
         enrollEnter.setType("缴费");
-        enrollEnter.setState("成功");
+        enrollEnter.setState("Y");
         enrollEnter.setNumbers(param.getNumbers());
         enrollEnter.setCreateId(Long.parseLong(param.getPhone()));
         enrollEnter.setUpdateId(Long.parseLong(param.getPhone()));
@@ -94,7 +98,7 @@ public class ApiController extends BaseController {
 
         boolean isFlag1 = enrollEnterService.insert(enrollEnter);
         if (!isFlag1) {
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "数据插入失败");
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
         }
         return new ReturnDTO(RESULT_SUCCESS, "插入成功");
     }
