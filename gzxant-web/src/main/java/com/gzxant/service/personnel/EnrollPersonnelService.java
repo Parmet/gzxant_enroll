@@ -1,12 +1,13 @@
-package com.gzxant.service.enroll.personnel;
+package com.gzxant.service.personnel;
 
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.gzxant.base.entity.ReturnDTO;
+import com.gzxant.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.dao.enroll.personnel.EnrollPersonnelDao;
-import com.gzxant.service.enroll.personnel.IEnrollPersonnelService;
 import com.gzxant.base.service.impl.BaseService;
 
 /**
@@ -41,7 +42,13 @@ public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, Enro
      */
     @Override
     public EnrollPersonnel login(String name, String password) {
-        EnrollPersonnel enrollPersonnel = selectOne(Condition.create().eq("phone", name).in("password",password));
+        if (StringUtils.isEmpty(name)) {
+            return null;
+        }
+        if (StringUtils.isEmpty(password)) {
+            return null;
+        }
+        EnrollPersonnel enrollPersonnel = selectOne(Condition.create().eq("phone", name).like("password",password));
         return enrollPersonnel;
     }
 }

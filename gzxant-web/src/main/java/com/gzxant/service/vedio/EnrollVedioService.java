@@ -1,4 +1,4 @@
-package com.gzxant.service.enroll.vedio;
+package com.gzxant.service.vedio;
 
 import com.gzxant.base.service.impl.BaseService;
 import com.gzxant.dao.enroll.vedio.EnrollVedioDao;
@@ -11,6 +11,6 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class EnrollVedioService extends BaseService<EnrollVedioDao,EnrollVedio> implements IEnrollVedioService{
+public class EnrollVedioService extends BaseService<EnrollVedioDao,EnrollVedio> implements com.gzxant.service.enroll.vedio.IEnrollVedioService {
 
 }

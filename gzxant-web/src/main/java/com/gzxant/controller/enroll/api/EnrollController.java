@@ -5,7 +5,7 @@ import com.gzxant.base.entity.ReturnDTO;
 import com.gzxant.entity.enroll.enter.EnrollEnter;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.service.enroll.enter.IEnrollEnterService;
-import com.gzxant.service.enroll.personnel.IEnrollPersonnelService;
+import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -54,7 +54,7 @@ public class EnrollController extends BaseController {
 		}
 		EnrollPersonnel enrollPersonnel = enrollPersonnelService.login(name, password);
 		if (enrollPersonnel == null) {
-			return new ReturnDTO(NOT_RESULT_SUCCESS, "没有此用户");
+			return new ReturnDTO(NOT_RESULT_SUCCESS, "用户名或密码错误");
 		}
 
 		//返回数据到前端
@@ -68,17 +68,17 @@ public class EnrollController extends BaseController {
 	/**
 	 * 参赛者管理信息
 	 * @param model
-	 * @param personnelid
+	 * @param numders
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/enter/{id}", method = { RequestMethod.GET },produces = "application/json;charset=UTF-8")
-	public ReturnDTO findbyIdEnterdate(Model model, @PathVariable("id")String personnelid) throws IOException {
-		if(StringUtils.isEmpty(personnelid)){
+	@RequestMapping(value = "/enter/{numbers}", method = { RequestMethod.GET })
+	public ReturnDTO findbyIdEnterdate(Model model, @PathVariable("numders")String numders) throws IOException {
+		if(StringUtils.isEmpty(numders)){
 			return new ReturnDTO(PARARM_FAIL, "参数不能为空");
 		}
 
-		EnrollEnter enrollEnter=enrollEnterService.findbyIdEnterdate(personnelid);
+		EnrollEnter enrollEnter=enrollEnterService.findbyIdEnterdate(numders);
 		if(enrollEnter==null){
 			return new ReturnDTO(NOT_RESULT_SUCCESS, "没有查到数据");
 		}
@@ -91,7 +91,7 @@ public class EnrollController extends BaseController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/enter", method = { RequestMethod.GET },produces = "text/html;charset=UTF-8" )
+	@RequestMapping(value = "/enter", method = { RequestMethod.GET } )
 	public ReturnDTO findbyALlEnterdate(Model model) throws IOException {
 		List<EnrollEnter> list = enrollEnterService.selectList(null);
 		//返回数据到前端

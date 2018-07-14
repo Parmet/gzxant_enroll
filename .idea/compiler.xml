@@ -13,13 +13,5 @@
         <module name="gzxant-web" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="gzxant-code" target="1.8" />
-      <module name="gzxant-common" target="1.8" />
-      <module name="gzxant-log" target="1.8" />
-      <module name="gzxant-sys" target="1.8" />
-      <module name="gzxant-web" target="1.8" />
-      <module name="gzxant_enroll" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

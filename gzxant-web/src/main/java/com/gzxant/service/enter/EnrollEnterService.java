@@ -1,7 +1,8 @@
-package com.gzxant.service.enroll.enter;
+package com.gzxant.service.enter;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
+import com.gzxant.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,15 @@ public class EnrollEnterService extends BaseService<EnrollEnterDao, EnrollEnter>
     /**
      * 登录
      *
-     * @param name
-     * @param password
+     * @param numbers
      * @return
      */
     @Override
-    public EnrollEnter findbyIdEnterdate(String personnel_id) {
-        EnrollEnter enrollEnter = selectOne(Condition.create().in("personnel_id",personnel_id));
+    public EnrollEnter findbyIdEnterdate(String numbers) {
+        if(StringUtils.isEmpty(numbers)){
+            return null;
+        }
+        EnrollEnter enrollEnter = selectOne(Condition.create().in("numbers",numbers));
         return enrollEnter;
     }
 }

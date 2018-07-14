@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gzxant.annotation.SLog;
 import com.gzxant.base.entity.ReturnDTO;
 import com.gzxant.base.vo.DataTable;
-import com.gzxant.service.enroll.personnel.IEnrollPersonnelService;
+import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.util.ReturnDTOUtil;
 import com.gzxant.base.controller.BaseController;
