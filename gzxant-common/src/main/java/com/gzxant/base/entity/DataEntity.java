@@ -3,18 +3,17 @@
  */
 package com.gzxant.base.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotations.TableName;
-import org.hibernate.validator.constraints.Length;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gzxant.constant.Global;
+import org.hibernate.validator.constraints.Length;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 数据Entity类

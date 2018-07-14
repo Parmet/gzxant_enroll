@@ -1,7 +1,16 @@
 package com.gzxant.util.message;
 
-import java.util.List;
-import java.util.Map;
+import com.gzxant.base.entity.MessageSend;
+import com.gzxant.base.service.ISysDictService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpException;
+import org.apache.http.client.HttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
+
+import java.io.IOException;
 
 public class MchuanMessageUtil {
 
@@ -10,19 +19,34 @@ public class MchuanMessageUtil {
     private static final String USER_ID = "";
     private static final String PASSWORD = "";
 
-    public static boolean send(List<String> phone, Map<String, Object> param) {
-        if (phone == null || phone.isEmpty()) {
+    @Autowired
+    private ISysDictService dictService;
+
+    public static boolean send(MessageSend msg) {
+        if (msg == null || msg.getPhone() == null
+                || msg.getPhone().isEmpty()
+                || StringUtils.isBlank(msg.getTemplateKey())) {
             return false;
         }
+
+        // http 请求
+        // 生成请求内容
+        // 发送请求
+        // 解析返回的请求
+        // 保存短信验证码
+        // 返回发送结果
 
         return false;
     }
 
-    private String bulidSendContent(List<String> phone, Map<String, Object> param) {
-        if (phone == null || phone.isEmpty()) {
+    private String bulidSendContent(MessageSend msg) {
+        if (msg == null || msg.getPhone() == null
+                || msg.getPhone().isEmpty()
+                || StringUtils.isBlank(msg.getTemplateKey())) {
             return null;
         }
 
         return "";
     }
+
 }

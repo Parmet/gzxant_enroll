@@ -1,10 +1,9 @@
-package com.gzxant.dao;
+package com.gzxant.base.dao;
 
+
+import com.gzxant.base.entity.SysConfig;
 
 import java.util.List;
-
-import com.gzxant.base.dao.CrudDao;
-import com.gzxant.entity.SysConfig;
 
 /**
  * Created by chen on 2017/4/10.

@@ -7,21 +7,17 @@ import org.hibernate.validator.constraints.Length;
 import java.io.Serializable;
 
 /**
+ * Created by chen on 2017/4/10.
  * <p>
- * 系统配置sys_dict
- * </p>
- *
- * @author ycxiao
- * @since 2018-05-14
+ * Email 122741482@qq.com
+ * <p>
+ * Describe: 系统数据字典 实体类
  */
-@TableName("sys_config")
-public class SysConfigApi extends TreeEntity<SysConfigApi> {
-
-    private static final long serialVersionUID = 1L;
+@TableName("sys_dict")
+public class SysDict extends TreeEntity<SysDict> {
 
     private String jkey; //varchar(64) NULLkey
     private String jvalue; //varchar(1000) NULLvalue
-    private String value; //varchar(1000) NULLvalue
 
     private String type;
 
@@ -98,26 +94,4 @@ public class SysConfigApi extends TreeEntity<SysConfigApi> {
     public void setInvalid(String invalid) {
         this.invalid = invalid;
     }
-    
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	@Override
-	public String toString() {
-		return "SysConfig{" +
-			", parentId=" + parentId +
-			", jkey=" + jkey +
-			", jvalue=" + jvalue +
-			", sort=" + sort +
-			", path=" + path +
-			", sysCompanyId=" + sysCompanyId +
-			", icon=" + icon +
-			", type=" + type +
-			", invalid=" + invalid +
-			"}";
-	}
 }

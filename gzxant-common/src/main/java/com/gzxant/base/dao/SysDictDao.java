@@ -1,11 +1,9 @@
-package com.gzxant.dao;
+package com.gzxant.base.dao;
 
+
+import com.gzxant.base.entity.SysDict;
 
 import java.util.List;
-
-import com.gzxant.base.dao.TreeDao;
-import com.gzxant.base.vo.JsTree;
-import com.gzxant.entity.SysDict;
 
 /**
  * Created by chen on 2017/4/10.

@@ -1,25 +1,27 @@
-package com.gzxant.entity;
-
-import java.io.Serializable;
-
-import org.hibernate.validator.constraints.Length;
+package com.gzxant.base.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.gzxant.base.entity.TreeEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.io.Serializable;
 
 /**
- * Created by chen on 2017/4/10.
  * <p>
- * Email 122741482@qq.com
- * <p>
- * Describe: 系统数据字典 实体类
+ * 系统配置sys_dict
+ * </p>
+ *
+ * @author ycxiao
+ * @since 2018-05-14
  */
-@TableName("sys_dict")
-public class SysDict extends TreeEntity<SysDict> {
+@TableName("sys_config")
+public class SysConfig extends TreeEntity<SysConfig> {
+
+    private static final long serialVersionUID = 1L;
 
     private String jkey; //varchar(64) NULLkey
     private String jvalue; //varchar(1000) NULLvalue
+    private String value; //varchar(1000) NULLvalue
 
     private String type;
 
@@ -96,4 +98,26 @@ public class SysDict extends TreeEntity<SysDict> {
     public void setInvalid(String invalid) {
         this.invalid = invalid;
     }
+    
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	@Override
+	public String toString() {
+		return "SysConfig{" +
+			", parentId=" + parentId +
+			", jkey=" + jkey +
+			", jvalue=" + jvalue +
+			", sort=" + sort +
+			", path=" + path +
+			", sysCompanyId=" + sysCompanyId +
+			", icon=" + icon +
+			", type=" + type +
+			", invalid=" + invalid +
+			"}";
+	}
 }

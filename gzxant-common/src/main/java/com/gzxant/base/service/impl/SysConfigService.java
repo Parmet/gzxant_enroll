@@ -1,22 +1,20 @@
-package com.gzxant.service.impl;
-
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
-import org.assertj.core.util.Strings;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+package com.gzxant.base.service.impl;
 
 import com.baomidou.mybatisplus.enums.SqlLike;
 import com.baomidou.mybatisplus.mapper.Condition;
-import com.gzxant.base.service.impl.BaseService;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.gzxant.base.dao.SysConfigDao;
+import com.gzxant.base.entity.SysConfig;
+import com.gzxant.base.service.ISysConfigService;
 import com.gzxant.base.vo.JsTree;
 import com.gzxant.base.vo.PCAjaxVO;
 import com.gzxant.constant.Global;
-import com.gzxant.dao.SysConfigDao;
-import com.gzxant.entity.SysConfig;
-import com.gzxant.service.ISysConfigService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  *
