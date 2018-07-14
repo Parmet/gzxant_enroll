@@ -1,10 +1,12 @@
-package com.gzxant.entity.enroll.article;
+package com.gzxant.entity.article;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gzxant.base.entity.DataEntity;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -25,11 +27,13 @@ public class EnrollArticle extends DataEntity<EnrollArticle> {
     /**
      * 文章标题
      */
+    @NotEmpty(message = "文章标题不能为空")
     private String name;
 
     /**
      * 文章内容
      */
+    @NotEmpty(message = "文章内容不能为空")
     private String content;
 
     /**
@@ -39,10 +43,36 @@ public class EnrollArticle extends DataEntity<EnrollArticle> {
     private Integer isRelease;
 
     /**
+     * 列表图片
+     */
+    private String image;
+
+    /**
+     * 简述
+     */
+    private String subcontent;
+
+    /**
      * 文章发布时间
      */
     @TableField("release_date")
     private Timestamp releaseDate;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getSubcontent() {
+        return subcontent;
+    }
+
+    public void setSubcontent(String subcontent) {
+        this.subcontent = subcontent;
+    }
 
     @Override
     protected Serializable pkVal() {
@@ -100,9 +130,9 @@ public class EnrollArticle extends DataEntity<EnrollArticle> {
                 "name='" + name + '\'' +
                 ", content='" + content + '\'' +
                 ", isRelease=" + isRelease +
+                ", image='" + image + '\'' +
+                ", subcontent='" + subcontent + '\'' +
                 ", releaseDate=" + releaseDate +
                 '}';
     }
-
-
 }

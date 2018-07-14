@@ -49,11 +49,13 @@
             },
             {
                 field: 'name',
-                title: '标题'
+                title: '标题',
+                width: 120
             },
             {
                 field: 'content',
-                title: '文章内容'
+                title: '文章内容',
+                style:'height:100px;',
             },
             {
                 field: 'isReleaseStr',
@@ -63,6 +65,7 @@
                 title: '操作',
                 field: 'id',
                 align: 'center',
+                width: 140,
                 formatter: function (value, row, index) {
 
                     return dt_edit_button(row)+dt_detail_button(row)+dt_delete_button(row);
