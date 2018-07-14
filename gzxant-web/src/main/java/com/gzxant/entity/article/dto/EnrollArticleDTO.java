@@ -12,6 +12,16 @@ public class EnrollArticleDTO {
 
     private String image;
 
+    private String releaseDate;
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -42,6 +52,7 @@ public class EnrollArticleDTO {
                 "title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", image='" + image + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
                 '}';
     }
 }

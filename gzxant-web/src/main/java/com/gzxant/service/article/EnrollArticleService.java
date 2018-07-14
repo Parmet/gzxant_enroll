@@ -50,8 +50,9 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
         EnrollArticle enrollArticle = this.baseMapper.selectById(id);
         EnrollArticleDTO enrollArticleDTO = new EnrollArticleDTO();
         enrollArticleDTO.setTitle(enrollArticle.getName());
-        enrollArticleDTO.setContent(enrollArticle.getSubcontent());
+        enrollArticleDTO.setContent(enrollArticle.getContent());
         enrollArticleDTO.setImage(enrollArticle.getImage());
+        enrollArticleDTO.setReleaseDate();
         return enrollArticleDTO;
     }
 

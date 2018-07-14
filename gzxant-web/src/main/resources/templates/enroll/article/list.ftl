@@ -55,7 +55,7 @@
             {
                 field: 'content',
                 title: '文章内容',
-                style:'height:100px;',
+                width: 20
             },
             {
                 field: 'isReleaseStr',
