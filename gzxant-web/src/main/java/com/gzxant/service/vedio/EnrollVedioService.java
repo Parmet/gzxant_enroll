@@ -11,6 +11,6 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class EnrollVedioService extends BaseService<EnrollVedioDao,EnrollVedio> implements com.gzxant.service.enroll.vedio.IEnrollVedioService {
+public class EnrollVedioService extends BaseService<EnrollVedioDao,EnrollVedio> implements IEnrollVedioService {
 
 }
