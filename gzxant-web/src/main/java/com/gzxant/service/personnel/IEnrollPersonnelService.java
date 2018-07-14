@@ -28,4 +28,18 @@ public interface IEnrollPersonnelService extends IBaseService<EnrollPersonnel> {
      * @return
      */
     EnrollPersonnel login(String name, String password);
+
+    /**
+     * 用户报名
+     * @param param
+     */
+    boolean insertBean(EnrollPersonnel param);
+    /**
+     * 获取所有数据
+     */
+    int selectAllcount();
+    /**
+     * 检测用户是否存在
+     */
+    public Boolean checknumbers(String numbers);
 }

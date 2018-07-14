@@ -55,6 +55,11 @@
                 checkbox: true
             },
             {
+                field: 'numbers',
+                title: '编号'
+            }
+            ,
+            {
                 field: 'name',
                 title: '姓名'
             },

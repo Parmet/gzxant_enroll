@@ -111,7 +111,13 @@ public class EnrollPersonnelController extends BaseController {
 	@PostMapping(value = "/insert")
 	@ResponseBody
 	public ReturnDTO create(EnrollPersonnel param) {
-		enrollPersonnelService.insert(param);
+		if (param == null) {
+			return ReturnDTOUtil.paramError();
+		}
+		boolean isFlag1 = enrollPersonnelService.insertBean(param);
+		if (!isFlag1) {
+			return ReturnDTOUtil.paramError();
+		}
 		return ReturnDTOUtil.success();
 	}
 
