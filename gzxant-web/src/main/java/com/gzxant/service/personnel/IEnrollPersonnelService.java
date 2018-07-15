@@ -42,4 +42,6 @@ public interface IEnrollPersonnelService extends IBaseService<EnrollPersonnel> {
      * 检测用户是否存在
      */
     public Boolean checknumbers(String numbers);
+
+    boolean checkPhone(String id, String phone);
 }

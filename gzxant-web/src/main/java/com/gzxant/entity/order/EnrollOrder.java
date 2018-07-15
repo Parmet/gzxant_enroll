@@ -19,7 +19,7 @@ public class EnrollOrder extends DataEntity<EnrollOrder> {
 
     private static final long serialVersionUID = 1L;
 
-    public static final BigDecimal MONEY = new BigDecimal(0.01);
+    public static final String SYS_CONFIG_MONEY_KEY = "ENROLL_MONEY";
 
     private String openid;
     private String name;

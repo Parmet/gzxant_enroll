@@ -17,6 +17,7 @@
 		html, body {
 			margin: 0;
 			padding: 0;
+			background-color: #000d1d;
 			height: 100%;
 		}
 
@@ -33,12 +34,13 @@
 
 		.nav {
 			height: 5%;
+			background-color: #fff;
 		}
 
 		.article-box {
 			height: 60%;
 			overflow-y: scroll;
-			background-color: #000d1d;
+
 		}
 
 		.article-box img {
@@ -68,79 +70,12 @@
 			<li role="presentation" class="active"><a href="${rc.contextPath}/front/result" style="background-color: #CC8E12;">海选结果</a></li>
 		</ul>
 		<div class="article-box">
+			<h3 align="center" style="color: #CC8E12">敬请期待！</h3>
 			<div class="row">
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/profile_small.jpg" class="img-rounded" />
-					<p> 李健</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>邓紫棋</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a3.jpg" class="img-rounded" />
-					<p>张杰</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a5.jpg" class="img-rounded" />
-					<p>小萌萌</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a6.jpg" class="img-rounded" />
-					<p>白雪</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a7.jpg" class="img-rounded" />
-					<p>谢丹</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a8.jpg" class="img-rounded" />
-					<p> 李健</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a9.jpg" class="img-rounded" />
-					<p>邓紫棋</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>张杰</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>小萌萌</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>白雪</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
+				<!--<div class="col-xs-4 col-sm-4 col-md-4">
 					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
 					<p>谢丹</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p> 李健</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>邓紫棋</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>张杰</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>小萌萌</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>白雪</p>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4">
-					<img src="${rc.contextPath}/img/a1.jpg" class="img-rounded" />
-					<p>谢丹</p>
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</div>

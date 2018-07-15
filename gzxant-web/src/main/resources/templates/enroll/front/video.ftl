@@ -48,6 +48,12 @@
 		.article-box video {
 			width: 100%;
 		}
+
+		.video-box {
+			margin: 0;
+			padding: 0;
+			border: 1px #000 solid;
+		}
 	</style>
 </head>
 <body>
@@ -56,13 +62,15 @@
 	<div class="content-box">
 		<ul class="nav nav-pills">
 			<li role="presentation"><a href="${rc.contextPath}/front/article">活动信息</a></li>
-			<li role="presentation" class="active"><a href="${rc.contextPath}/front/video">视频回顾</a></li>
+			<li role="presentation" class="active"><a href="${rc.contextPath}/front/video"  style="background-color: #CC8E12;">视频回顾</a></li>
 			<li role="presentation"><a href="${rc.contextPath}/front/result">海选结果</a></li>
 		</ul>
 		<div class="article-box" id="video">
-			<video src="movie.mp4" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
+			<div class="video-box">
+				<video src="movie.mp4" controls="controls">
+					您的浏览器不支持 video 播放。
+				</video>
+			</div>
 			<p style="text-align: center;">海选0001号选手</p>
 		</div>
 	</div>
@@ -77,10 +85,9 @@
 					let m = e.message;
                     for(var i = 0; i < m.length;i++)
                     {
-
                         let video = "http://127.0.0.1"+m[i].vedioUrl;
                         let text = m[i].name;
-                        $("#video").append("<video src=\""+video+"\" controls=\"controls\">您的浏览器不支持 video 播放。</video><p style=\"text-align: center;\">"+text+"</p>");
+                        $("#video").append("<div class=\"video-box\"><video src=\""+video+"\" controls=\"controls\">您的浏览器不支持 video 播放。</video></div><p style=\"text-align: center;\">"+text+"</p>");
                     }
                 }
             });

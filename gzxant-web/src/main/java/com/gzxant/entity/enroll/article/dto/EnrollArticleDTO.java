@@ -6,6 +6,8 @@ package com.gzxant.entity.enroll.article.dto;
  */
 public class EnrollArticleDTO {
 
+    private Long id;
+
     private String title;
 
     private String content;
@@ -13,6 +15,14 @@ public class EnrollArticleDTO {
     private String image;
 
     private String releaseDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getReleaseDate() {
         return releaseDate;

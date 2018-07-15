@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/front")
 public class EnrollIndexController extends BaseController {
 
-    @GetMapping({"/{action}", "/{action}/{phone}"})
+    @GetMapping({"/{action}", "/{action}/{param}"})
     public String action(@PathVariable("action") String action,
-                         @PathVariable(name = "phone", required = false) String phone,
+                         @PathVariable(name = "param", required = false) String param,
                          @RequestParam(name = "openid", required = false) String openid,
                          Model model) {
         model.addAttribute("openid", openid);
-        model.addAttribute("phone", phone);
+        model.addAttribute("phone", param);
+        model.addAttribute("id", param);
         return "/enroll/front/" + action;
     }
 }

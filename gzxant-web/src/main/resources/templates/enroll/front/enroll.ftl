@@ -159,7 +159,7 @@
                 isMobile:true,
                 maxlength:11,
                 minlength:11,
-                remote: '${rc.contextPath}/personnel/check/'
+                remote: '${rc.contextPath}/api/enroll/check/phone'
             },
             password: {
                 required: true,
@@ -181,7 +181,8 @@
 				number:"只能输入数字",
 				isMobile:"请输入正确的手机号码",
 				maxlength:"请输入11位的手机号码",
-				minlength:"请输入11位的手机号码"
+				minlength:"请输入11位的手机号码",
+				remote: "手机号已存在"
 			},
 			password:{
 				required:  "请输入密码",
@@ -385,10 +386,10 @@
 			if (validate.isNotEmpty(data)
 				&& data.hasOwnProperty("code")
 				&& data.code == 1000) {
-				return_url = "${rc.contextPath}/gzxant/enroll/front/index";
-				window.location.href = result_url;
-				//window.location.href = pay_api;
 				layer.alert("报名成功！");
+				//return_url = "${rc.contextPath}/gzxant/enroll/front/index";
+				//window.location.href = return_url;
+				window.location.href = pay_api;
 			} else {
 				layer.alert(data.error);
 			}
@@ -417,6 +418,7 @@
 
 
 </script>
+
 
 
 </html>

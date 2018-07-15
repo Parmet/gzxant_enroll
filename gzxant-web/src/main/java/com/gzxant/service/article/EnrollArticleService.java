@@ -33,6 +33,7 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
         if (enrollArticles != null) {
             for (EnrollArticle enrollArticle: enrollArticles) {
                 EnrollArticleDTO enrollArticleDTO = new EnrollArticleDTO();
+                enrollArticleDTO.setId(enrollArticle.getId());
                 enrollArticleDTO.setTitle(enrollArticle.getName());
                 String subcontent = enrollArticle.getSubcontent();
                 if (subcontent.length() > 16) {
@@ -51,7 +52,12 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
         if (id == null) {
             throw new SdkClientException(HttpCodeEnum.INVALID_REQUEST.getMessage());
         }
-        EnrollArticle enrollArticle = this.baseMapper.selectById(id);
+
+        EnrollArticle enrollArticle = super.selectById(id);
+        if (enrollArticle == null || enrollArticle.getId() == null) {
+            return new EnrollArticleDTO();
+        }
+
         EnrollArticleDTO enrollArticleDTO = new EnrollArticleDTO();
         enrollArticleDTO.setTitle(enrollArticle.getName());
         enrollArticleDTO.setContent(enrollArticle.getContent());

@@ -4,7 +4,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: pro
   aop:
     proxy-target-class: true
   freemarker:
@@ -62,7 +62,7 @@ wechat:
   mpAppSecret: 6af2547e8f88399cee105ec929204f3c
   mchId: 1509328281
   mchKey: smallant6AHSE858d4FUI4fZVyhUFlvC
-  keyPath: F:\cert\apiclient_cert.p12
-  notifyUrl: http://wings.natapp1.cc/gzxant/enroll/api/notify
-  openIdReturnUrl: http://wings.natapp1.cc/gzxant/enroll/front/enroll
-  openIdUrl: http://wings.natapp1.cc/gzxant/enroll/front/wechat/userinfo
+  keyPath: \app\config\apiclient_cert.p12
+  notifyUrl: http://cctv.gzxant.com/gzxant/enroll/api/notify
+  openIdReturnUrl: http://cctv.gzxant.com/gzxant/enroll/front/enroll
+  openIdUrl: http://cctv.gzxant.com/gzxant/enroll/front/wechat/userinfo

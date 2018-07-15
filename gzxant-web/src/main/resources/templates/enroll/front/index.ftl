@@ -39,8 +39,8 @@
 <body>
 	<div class="btn-box">
 		<a href="${rc.contextPath}/front/login" class="btn btn-info btn-block">登录</a>
-		<!--<a href="${rc.contextPath}/front/wechat/authorize" class="btn btn-info btn-block">报名</a>-->
-		<a href="${rc.contextPath}/front/enroll" class="btn btn-info btn-block">报名</a>
+		<a href="${rc.contextPath}/front/wechat/authorize" class="btn btn-info btn-block">报名</a>
+		<!--<a href="${rc.contextPath}/front/enroll" class="btn btn-info btn-block">报名</a>-->
 	</div>
 </body>
 

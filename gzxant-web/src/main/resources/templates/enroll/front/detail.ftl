@@ -7,11 +7,11 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 	<title>唱响春天</title>
 	<link rel="shortcut icon" href="${rc.contextPath}${gzxant.photo}">
-	<link href="bootstrap.min.css?v=3.3.6" rel="stylesheet">
-	<script src="jquery.min.js?v=2.1.4"></script>
-	<script src="bootstrap.min.js?v=3.3.6"></script>
-	<script src="plugins/layer/layer.min.js"></script>
-	<script src="util/validate-util.js"></script>
+	<link href="${rc.contextPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+	<script src="${rc.contextPath}/js/jquery.min.js?v=2.1.4"></script>
+	<script src="${rc.contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="${rc.contextPath}/js/plugins/layer/layer.min.js"></script>
+	<script src="${rc.contextPath}/js/util/validate-util.js"></script>
 
 	<style type="text/css">
 		html, body {
@@ -47,20 +47,27 @@
 <body>
 	<div class="container">
 		<div class="head">
-			<h3>后来的我们：过了这么多年，你还好吗？</h3>
+			<h3></h3>
 		</div>
 		<div class="main">
 			<p>
-				<span>“都说人这一辈子，最怕忽然听懂一首歌。不是听懂了歌里的世界，而是突然看懂了自己的曾经。”</span>
-			</p>
-			<p>
-				<img class="img" src="http://d.ifengimg.com/w600/p0.ifengimg.com/pmop/2018/0428/EC3B177981C38D2B12B328D0A1DEDE37898D0B40_size70_w1080_h696.jpeg" style="margin: 28px auto 0px;">
+				<img class="img" src="" style="margin: 28px auto 0px;">
 			</p>
 		</div>
 		<div class="foot">
-			<p>bey</p>
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	$.get("${rc.contextPath}/article/mobile/${id}", function (data) {
+		if (data.code == 200) {
+			data = data.message;
+			$("h3").html(data.title);
+			$(".img").attr("src", data.image);
+			$(".foot").html(data.content);
+		}
+	});
+</script>
 
 </html>

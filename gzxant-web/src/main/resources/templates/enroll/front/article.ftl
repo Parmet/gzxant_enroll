@@ -63,32 +63,11 @@
 			<li role="presentation"><a href="${rc.contextPath}/front/result">海选结果</a></li>
 		</ul>
 		<div class="article-box">
-			<ul class="list-group">
+			<ul class="list-group" id="list">
 				<li class="list-group-item row">
 					<div class="col-xs-4 col-sm-4 col-md-4"><img src="${rc.contextPath}/img/p1.jpg" /></div>
 					<div class="col-xs-8 col-sm-8 col-md-8">
 						<p style="font-weight: bold; font-size: 12px;">CCTV“唱响春天”第九届全国才艺表演接受报名</p>
-						<p style="font-size: 10px;">CCTV官方才艺汇演正式开始接受报名，请......</p>
-					</div>
-				</li>
-				<li class="list-group-item row">
-					<div class="col-xs-4 col-sm-4 col-md-4"><img src="${rc.contextPath}/img/p2.jpg" /></div>
-					<div class="col-xs-8 col-sm-8 col-md-8">
-						<p style="font-weight: bold; font-size: 12px;">CCTV“唱响春天”第九届全国才艺表演广东赛区</p>
-						<p style="font-size: 10px;">CCTV官方才艺汇演正式开始接受报名，请......</p>
-					</div>
-				</li>
-				<li class="list-group-item row">
-					<div class="col-xs-4 col-sm-4 col-md-4"><img src="${rc.contextPath}/img/p3.jpg" /></div>
-					<div class="col-xs-8 col-sm-8 col-md-8">
-						<p style="font-weight: bold; font-size: 12px;">CCTV“唱响春天”第九届全国才艺表演正式开幕</p>
-						<p style="font-size: 10px;">CCTV官方才艺汇演正式开始接受报名，请......</p>
-					</div>
-				</li>
-				<li class="list-group-item row">
-					<div class="col-xs-4 col-sm-4 col-md-4"><img src="${rc.contextPath}/img/p1.jpg" /></div>
-					<div class="col-xs-8 col-sm-8 col-md-8">
-						<p style="font-weight: bold; font-size: 12px;">CCTV“唱响春天”第九届全国才艺表演</p>
 						<p style="font-size: 10px;">CCTV官方才艺汇演正式开始接受报名，请......</p>
 					</div>
 				</li>
@@ -97,4 +76,24 @@
 	</div>
 </body>
 
+<script type="text/javascript">
+	$.get("${rc.contextPath}/article/mobile/list", function (data) {
+		var html = "";
+		$.each(data.message, function(index, item) {
+			html = html + '<li class="list-group-item row" onclick="detail(\'' + item.id + '\')">';
+			html = html + '<div class="col-xs-4 col-sm-4 col-md-4"><img src="' + item.image + '" /></div>';
+			html = html + '<div class="col-xs-8 col-sm-8 col-md-8">';
+			html = html + '<p style="font-weight: bold; font-size: 12px;">' + item.title + '</p>';
+			html = html + '<p style="font-size: 10px;">' + item.content + '......</p>';
+			html = html + '</div>';
+			html = html + '</li>';
+		});
+
+		$("#list").html(html);
+	});
+
+	function detail(id) {
+		window.location.href = "${rc.contextPath}/front/detail/" + id;
+	}
+</script>
 </html>

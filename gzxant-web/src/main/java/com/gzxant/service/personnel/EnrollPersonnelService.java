@@ -11,6 +11,8 @@ import com.gzxant.dao.enroll.personnel.EnrollPersonnelDao;
 import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.base.service.impl.BaseService;
 
+import java.util.List;
+
 /**
  * <p>
  * 参赛者信息 服务实现类
@@ -27,6 +29,37 @@ public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, Enro
     private static int RESULT_SUCCESS = 1000;
     private static int PARARM_FAIL = 1001;
     private static int NOT_RESULT_SUCCESS = 1002;
+
+    @Override
+    public boolean checkPhone(String id, String phone) {
+        if (StringUtils.isBlank(phone)
+                || !StringUtils.isMobile(phone)) {
+            return false;
+        }
+
+        List<EnrollPersonnel> persons = selectList(Condition
+                .create().eq("phone", phone)
+                .eq("del_flag", "Y"));
+        // 不存在数据则表示该手机号码不重复
+        if (persons == null || persons.isEmpty()) {
+            return false;
+        }
+
+        // 存在数据则且id为空则表示该手机号码重复
+        if (StringUtils.isBlank(id)) {
+            return true;
+        }
+
+        // id不为空且数据中包含当前id，则表示手机号不重复
+        for (EnrollPersonnel item : persons) {
+            if (item.getId().toString().equals(id.toString())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * 检测登录名是否重复
      *

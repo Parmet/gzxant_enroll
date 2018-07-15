@@ -1,19 +1,20 @@
 package com.gzxant.controller.enroll.api;
 
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.gzxant.base.controller.BaseController;
 import com.gzxant.base.entity.ReturnDTO;
+import com.gzxant.common.entity.config.SysConfig;
+import com.gzxant.common.service.config.ISysConfigService;
 import com.gzxant.entity.enroll.enter.EnrollEnter;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.entity.order.EnrollOrder;
 import com.gzxant.service.order.IEnrollOrderService;
 import com.gzxant.util.PasswordUtils;
+import com.gzxant.util.ReturnDTOUtil;
 import com.gzxant.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.service.enroll.enter.IEnrollEnterService;
 import java.io.IOException;
@@ -44,6 +45,9 @@ public class ApiController extends BaseController {
     @Autowired
     private IEnrollOrderService orderService;
 
+    @Autowired
+    private ISysConfigService configService;
+
     /**
      * 报名接口
      *
@@ -59,16 +63,20 @@ public class ApiController extends BaseController {
             return new ReturnDTO(PARARM_FAIL, "参数不能为空");
         }
 
-        if (StringUtils.isEmpty(param.getName()) || StringUtils.isChinese(param.getName())) {
-            return new ReturnDTO(PARARM_FAIL, "姓名必须是汉字");
+        if (StringUtils.isEmpty(param.getName())) {
+            return new ReturnDTO(PARARM_FAIL, "姓名不能为空");
         }
-        if (StringUtils.isEmpty(param.getPassword())||StringUtils.isPassword(param.getPassword())) {
-            return new ReturnDTO(PARARM_FAIL, "密码不能小于6位数");
+        if (StringUtils.isEmpty(param.getPassword())
+                || (param.getPassword().length() < 6
+                || param.getPassword().length() > 16)) {
+            return new ReturnDTO(PARARM_FAIL, "密码参数不正确");
         }
-        if (StringUtils.isMobile(param.getPhone())||StringUtils.isEmpty(param.getPhone())) {
+        if (StringUtils.isEmpty(param.getPhone())
+                || !StringUtils.isMobile(param.getPhone())) {
             return new ReturnDTO(PARARM_FAIL, "请输入正确的手机号码");
         }
-        if (StringUtils.isIDCard(param.getIdCard())||StringUtils.isEmpty(param.getIdCard())) {
+        if (StringUtils.isEmpty(param.getIdCard())
+                || !StringUtils.isIDCard(param.getIdCard())) {
             return new ReturnDTO(PARARM_FAIL, "请输入18或15位的身份证号码");
         }
         if (StringUtils.isEmpty(param.getPlace())) {
@@ -81,6 +89,7 @@ public class ApiController extends BaseController {
         if (!isFlag) {
             return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
         }
+
         enrollEnter.setPlace(param.getPlace());
         enrollEnter.setName(param.getName());
         enrollEnter.setType("缴费");
@@ -90,7 +99,9 @@ public class ApiController extends BaseController {
         enrollEnter.setUpdateId(Long.parseLong(param.getPhone()));
 
         EnrollOrder order = new EnrollOrder();
-        order.setMoney(EnrollOrder.MONEY);
+        SysConfig config = configService
+                .selectOne(Condition.create().eq("jkey", order.SYS_CONFIG_MONEY_KEY));
+        order.setMoney(BigDecimal.valueOf(Double.parseDouble(config.getValue())));
         order.setOpenid(param.getOpenid());
         order.setName(param.getName());
         order.setCreateId(Long.parseLong(param.getPhone()));
@@ -105,6 +116,20 @@ public class ApiController extends BaseController {
             return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
         }
         return new ReturnDTO(RESULT_SUCCESS, "插入成功");
+    }
+
+    @RequestMapping(value = "/enroll/check/phone", method = {RequestMethod.GET})
+    public Boolean checkPhone(@RequestParam("phone") String phone){
+        if (StringUtils.isBlank(phone)
+                || !StringUtils.isMobile(phone)) {
+            return false;
+        }
+
+        if (enrollPersonnelService.checkPhone(null, phone)) {
+            return false;
+        }
+
+        return true;
     }
 
 
