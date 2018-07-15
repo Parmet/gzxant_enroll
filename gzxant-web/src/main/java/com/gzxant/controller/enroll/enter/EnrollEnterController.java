@@ -1,53 +1,34 @@
 package com.gzxant.controller.enroll.enter;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.gzxant.annotation.SLog;
+import com.gzxant.base.controller.BaseController;
+import com.gzxant.base.entity.ReturnDTO;
+import com.gzxant.base.vo.DataTable;
+import com.gzxant.common.service.dict.ISysDictService;
 import com.gzxant.controller.enroll.personnel.EnrollPersonnelController;
+import com.gzxant.entity.enroll.enter.EnrollEnter;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
-import com.gzxant.service.ISysDictService;
-import com.gzxant.service.personnel.IEnrollPersonnelService;
-import com.gzxant.util.StringUtils;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import org.apache.http.util.TextUtils;
+import com.gzxant.service.enroll.enter.IEnrollEnterService;
+import com.gzxant.util.ReturnDTOUtil;
+import io.swagger.annotations.ApiOperation;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.gzxant.annotation.SLog;
-import com.gzxant.base.entity.ReturnDTO;
-import com.gzxant.base.vo.DataTable;
-import com.gzxant.service.enroll.enter.IEnrollEnterService;
-import com.gzxant.entity.enroll.enter.EnrollEnter;
-import com.gzxant.util.ReturnDTOUtil;
-import com.gzxant.base.controller.BaseController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -63,8 +44,6 @@ public class EnrollEnterController extends BaseController {
 	@Autowired
 	private IEnrollEnterService enrollEnterService;
 	@Autowired
-	private IEnrollPersonnelService enrollPersonnelService;
-	@Autowired
 	private ISysDictService dictService;
 	@Autowired
 	private EnrollPersonnelController enrollPersonnelController;
@@ -78,29 +57,15 @@ public class EnrollEnterController extends BaseController {
 		model.addAttribute("enterType", dictService.getDictTree("ENTER_TYPE"));
 		return "/enroll/enter/list";
 	}
-	/**
-	 * 检查用户名是否存在
-	 *
-	 * @param numbers
-	 * @return
-	 */
-	@GetMapping(value = "/check")
-	@ResponseBody
-	public Boolean check( @RequestParam("numbers") String numbers) {
 
-		return enrollPersonnelService.checknumbers(numbers);
-	}
 
 	@ApiOperation(value = "查看上传的图片", notes = "查看上传的图片")
 	@PostMapping(value = "/importexecldate")
 	@ResponseBody
 	public ReturnDTO getImageByPath(Model model,@RequestParam("path")String path) throws IOException {
-		if (path == null) {
-			return ReturnDTOUtil.paramError();
-		}
 		boolean isSuccess = false;
 		try {
-			isSuccess = enrollEnterService.batchImport(path);
+			isSuccess = batchImport(path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -122,11 +87,6 @@ public class EnrollEnterController extends BaseController {
 	@ApiOperation(value = "进入参赛者信息编辑界面", notes = "进入参赛者信息编辑界面")
 	@GetMapping(value = "/{action}/{id}")
 	public String detail(@PathVariable("action") String action, @PathVariable("id") String id, Model model) {
-		if (TextUtils.isEmpty(id)||TextUtils.isEmpty(action)){
-			if (org.apache.commons.lang3.StringUtils.isBlank(id)) {
-				return "redirect:/enter";
-			}
-		}
 		EnrollEnter enrollEnter = enrollEnterService.selectById(id);
 		model.addAttribute("enrollEnter", enrollEnter);
 		model.addAttribute("action", action);
@@ -138,9 +98,17 @@ public class EnrollEnterController extends BaseController {
 	@PostMapping(value = "/insert")
 	@ResponseBody
 	public ReturnDTO create(EnrollEnter param) {
-		if (param == null) {
-			return ReturnDTOUtil.paramError();
-		}
+		EnrollPersonnel enrollPersonnel = new EnrollPersonnel();
+		enrollPersonnel.setPassword("123456");
+		enrollPersonnel.setIdCard("440823198908216212");
+		enrollPersonnel.setName(param.getName());
+		enrollPersonnel.setPlace(param.getPlace());
+		enrollPersonnel.setPhone("18665053437");
+		enrollPersonnel.setRemark("这是后台添加用户");
+		enrollPersonnel.setStyle("爵士");
+		enrollPersonnelController.create(enrollPersonnel);
+		Long id = enrollPersonnel.getId();
+		param.setPersonnelId(enrollPersonnel.getId());
 		enrollEnterService.insert(param);
 		return ReturnDTOUtil.success();
 	}
@@ -165,9 +133,6 @@ public class EnrollEnterController extends BaseController {
 	@PostMapping(value = "/update")
 	@ResponseBody
 	public ReturnDTO update(EnrollEnter param) {
-		if (param == null) {
-			return ReturnDTOUtil.paramError();
-		}
 		enrollEnterService.updateById(param);
 		return ReturnDTOUtil.success();
 	}
@@ -177,9 +142,6 @@ public class EnrollEnterController extends BaseController {
 	@PostMapping(value = "/delete")
 	@ResponseBody
 	public ReturnDTO delete(@RequestParam("ids") List<Long> ids) {
-		if (ids==null){
-				return ReturnDTOUtil.paramError();
-		}
 		boolean success = enrollEnterService.deleteBatchIds(ids);
 		if (success) {
 			return ReturnDTOUtil.success();
@@ -188,5 +150,98 @@ public class EnrollEnterController extends BaseController {
 	}
 
 
+	public boolean batchImport(String fileName) throws Exception {
+		File file = new File(fileName);
+		InputStream targetStream = new FileInputStream(file);
+		List<EnrollEnter> userList = new ArrayList<EnrollEnter>();
+		if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
+			throw new Exception("上传文件格式不正确");
+		}
+		boolean isExcel2003 = true;
+		if (fileName.matches("^.+\\.(?i)(xlsx)$")) {
+			isExcel2003 = false;
+		}
+			//InputStream is = targetStream.getInputStream();
+			Workbook wb = null;
+			if (isExcel2003) {
+				wb = new HSSFWorkbook(targetStream);
+			} else {
+				wb = new XSSFWorkbook(targetStream);
+			}
+			Sheet sheet = wb.getSheetAt(0);
+
+
+			EnrollEnter enrollEnter;
+			for (int r = 1; r <= sheet.getLastRowNum(); r++) {
+				Row row = sheet.getRow(r);
+				if (row == null) {
+					continue;
+				}
+				enrollEnter = new EnrollEnter();
+				if (row.getCell(0).getCellType() != 1) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,姓名请设为文本格式)");
+				}
+				//获取参赛者id
+				String id = row.getCell(0).getStringCellValue();
+
+				if (id == null || id.isEmpty()) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,姓名未填写)");
+				}
+
+				row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
+				//姓名
+				String name = row.getCell(1).getStringCellValue();
+				if (name == null || name.isEmpty()) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,电话未填写)");
+				}
+				//获取地点
+				String palce = row.getCell(4).getStringCellValue();
+				if (palce == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+
+				//获取状态
+				String state = row.getCell(8).getStringCellValue();
+				if (state == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+
+				//获取分数
+				row.getCell(9).setCellType(Cell.CELL_TYPE_STRING);
+				String fraction = row.getCell(9).getStringCellValue()+"";
+				if (fraction == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+				//获取歌曲
+				String song = row.getCell(10).getStringCellValue();
+				if (song == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+				//获取类型
+				String type = row.getCell(11).getStringCellValue();
+				if (type == null) {
+					throw new Exception("导入失败(第" + (r + 1) + "行,不存在此单位或单位未填写)");
+				}
+
+				enrollEnter.setName(name);
+				enrollEnter.setPersonnelId(Long.parseLong(id));
+				enrollEnter.setFraction(fraction);
+				enrollEnter.setPlace(palce);
+				enrollEnter.setSong(song);
+				enrollEnter.setType(type);
+				if (state.equals("成功")) {
+					enrollEnter.setState("Y");
+				} else {
+					enrollEnter.setState("N");
+				}
+
+				userList.add(enrollEnter);
+			}
+			for (EnrollEnter userResord : userList) {
+				enrollEnterService.insert(userResord);
+
+			}
+			return true;
+		}
 
 }

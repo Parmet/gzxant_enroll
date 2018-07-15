@@ -1,11 +1,10 @@
-package com.gzxant.dao;
+package com.gzxant.common.dao.dict;
 
-
-import java.util.List;
 
 import com.gzxant.base.dao.TreeDao;
-import com.gzxant.base.vo.JsTree;
-import com.gzxant.entity.SysDict;
+import com.gzxant.common.entity.dict.SysDict;
+
+import java.util.List;
 
 /**
  * Created by chen on 2017/4/10.
@@ -14,7 +13,7 @@ import com.gzxant.entity.SysDict;
  * <p>
  * Describe: 系统数据字典dao
  */
-public interface SysDictDao extends TreeDao<SysDict>  {
+public interface SysDictDao extends TreeDao<SysDict> {
 
 	List<SysDict> getSub(String jkey);
 }

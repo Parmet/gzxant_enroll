@@ -1,7 +1,7 @@
 package com.gzxant.dao.enroll.personnel;
 
-import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.base.dao.CrudDao;
+import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 
 /**
  * <p>

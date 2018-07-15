@@ -1,10 +1,10 @@
 package com.gzxant.entity.enroll.personnel;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.gzxant.base.entity.DataEntity;
+
+import java.io.Serializable;
 
 /**
  * <p>

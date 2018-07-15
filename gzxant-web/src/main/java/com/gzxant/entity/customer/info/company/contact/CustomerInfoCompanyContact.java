@@ -1,10 +1,10 @@
 package com.gzxant.entity.customer.info.company.contact;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.gzxant.base.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * <p>

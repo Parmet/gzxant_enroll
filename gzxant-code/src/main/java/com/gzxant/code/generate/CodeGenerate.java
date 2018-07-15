@@ -33,18 +33,18 @@ public class CodeGenerate {
 
 	// --------------变动参数区 start------------------------------------------
 	/* === 表名 === */
-	private static String[] tableNames = {"customer_info_company_contact"}; //, "shop_order_goods", "shop_order_pay"
+	private static String[] tableNames = {"sys_message"}; //, "shop_order_goods", "shop_order_pay"
 	/* === 开发者 === */
-	public static String author = "tecty";
+	public static String author = "ycxiao";
 	/* === 输出目标项目，为空则生成在当前项目中 === */
-	public static String targetProject = "gzxant-web";
+	public static String targetProject = "gzxant-common";
 	/* === 准备生成文件["controller", "service", "dao", "entity", "xml"] === */
 	public static List<String> beGenerateFile = new ArrayList<>(
 			Arrays.asList("controller", "service", "dao", "entity", "xml"));
 	// --------------变动参数区 end------------------------------------------
 
 	// --------------数据源配置区 start------------------------------------------
-	public static String url = "jdbc:mysql://192.168.1.200:3306/gzxant_lease_car?useUnicode=true&characterEncoding=utf8&useSSL=false";
+	public static String url = "jdbc:mysql://192.168.1.200:3306/gzxant_enroll?useUnicode=true&characterEncoding=utf8&useSSL=false";
 	public static String name = "gzxant";
 	public static String passWord = "gzxant1804";
 	public static String driver = "com.mysql.jdbc.Driver";
@@ -58,7 +58,10 @@ public class CodeGenerate {
 		// mpg.setTemplateEngine(new FreemarkerTemplateEngine());
 
 		CodeGenerate cg = new CodeGenerate();
-		output = cg.getPath(targetProject) + "\\src\\main\\java";
+		output = cg.getPath(targetProject)
+				+ File.separator + "src"
+				+ File.separator + "main"
+				+ File.separator + "java";
 
 		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
@@ -166,13 +169,17 @@ public class CodeGenerate {
 				@Override
 				public String outputFile(TableInfo tableInfo) {
 					CodeGenerate cg = new CodeGenerate();
-					String path = cg.getPath("gzxant-common") + "\\src\\main\\resources\\mapper";
+					String path = cg.getPath("gzxant-common")
+							+ File.separator + "src"
+							+ File.separator + "main"
+							+ File.separator + "resources"
+							+ File.separator + "mapper";
 					String[] names = tableInfo.getName().split("_");
 					for (int i = 0; i < names.length; i++) {
-						path = path + "\\" + names[i];
+						path = path + File.separator + names[i];
 					}
 
-					path = path + "\\" + tableInfo.getEntityName() + "Dao.xml";
+					path = path + File.separator + tableInfo.getEntityName() + "Dao.xml";
 					System.out.println("dao path : " + path);
 					return path;
 				}
@@ -229,8 +236,8 @@ public class CodeGenerate {
 	 * @return
 	 */
 	public String getPath(String targetProject) {
-		String path = (new File(this.getClass().getResource("/").getPath())).getAbsolutePath();
-		path = path.replace("\\target\\classes", "");
+		String path = (new File(this.getClass().getResource(File.separator).getPath())).getAbsolutePath();
+		path = path.replace( File.separator + "target" + File.separator + "classes", "");
 		if (targetProject != null && !targetProject.equals("")) {
 			path = path.replace("gzxant-code", targetProject);
 		}

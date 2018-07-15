@@ -17,6 +17,7 @@ public class Setting {
 	 * 启动类扫描mapper文件路径
 	 */
 	public static final String SCAN_MAPPER_PATH = "com.gzxant.dao";
+    public static final String COMMON_SCAN_MAPPER_PATH = "com.gzxant.common.dao";
 	
     /**
      * 文件根目录

@@ -1,22 +1,20 @@
-package com.gzxant.service.impl;
-
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
-import org.assertj.core.util.Strings;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+package com.gzxant.common.service.dict;
 
 import com.baomidou.mybatisplus.enums.SqlLike;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.gzxant.base.service.impl.BaseService;
 import com.gzxant.base.vo.JsTree;
 import com.gzxant.base.vo.PCAjaxVO;
+import com.gzxant.common.dao.dict.SysDictDao;
+import com.gzxant.common.entity.dict.SysDict;
 import com.gzxant.constant.Global;
-import com.gzxant.dao.SysConfigDao;
-import com.gzxant.entity.SysConfig;
-import com.gzxant.service.ISysConfigService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  *
@@ -29,7 +27,7 @@ import com.gzxant.service.ISysConfigService;
  */
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-public class SysConfigService extends BaseService<SysConfigDao, SysConfig> implements ISysConfigService {
+public class SysDictService extends BaseService<SysDictDao, SysDict> implements ISysDictService {
 
     /**
      * 更新节点
@@ -44,16 +42,13 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
      */
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public boolean update(Long id, String dicKey, String dicValue, String type, String desc, String sort, String invalid, String value) {
-        SysConfig sysDict = selectById(id);
+    public boolean update(Long id, String dicKey, String dicValue, String type, String desc, String sort, String invalid) {
+        SysDict sysDict = selectById(id);
         if (null == sysDict) {
             return false;
         }
         sysDict.setJkey(dicKey);
         sysDict.setJvalue(dicValue);
-        if (!Strings.isNullOrEmpty(value)) {
-            sysDict.setValue(value);
-        }
         if (!Strings.isNullOrEmpty(sort)) {
             sysDict.setSort(Integer.parseInt(sort));
         }
@@ -67,11 +62,11 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
     }
 
     @Override
-    public List<JsTree> getConfigTree() {
+    public List<JsTree> getDictTree() {
         logger.info("查找字段树");
-        List<SysConfig> sysDicts = this.baseMapper.selectList(Condition.create().orderBy("sort", true));
+        List<SysDict> sysDicts = this.baseMapper.selectList(Condition.create().orderBy("sort", true));
         List<JsTree> jts = Lists.newArrayList();
-        for (SysConfig sysDict : sysDicts) {
+        for (SysDict sysDict : sysDicts) {
             JsTree jt = new JsTree();
             jt.setId(sysDict.getId().toString());
             jt.setParent(sysDict.getParentId().compareTo(0L) > 0 ? sysDict.getParentId().toString() : "#");
@@ -98,8 +93,8 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void insert(String dicKey, String dicValue, Long dicPid, String type, String desc, String
-            sort, String invalid, String path, String value) {
-    	SysConfig sysDict = new SysConfig();
+            sort, String invalid, String path) {
+        SysDict sysDict = new SysDict();
 
         if (null != dicPid) {
             sysDict.setParentId(dicPid);
@@ -108,9 +103,6 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
         }
         sysDict.setJkey(dicKey);
         sysDict.setJvalue(dicValue);
-        if (!Strings.isNullOrEmpty(value)) {
-            sysDict.setValue(value);
-        }
         if (!Strings.isNullOrEmpty(sort)) {
             sysDict.setSort(Integer.parseInt(sort));
         }
@@ -144,7 +136,7 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
     public PCAjaxVO delete(Long id) {
         PCAjaxVO status = new PCAjaxVO(true);
         //是否为类，以及类下是否有引用
-        SysConfig sysDict = selectById(id);
+        SysDict sysDict = selectById(id);
 
         if (sysDict != null) {
             //删除
@@ -159,8 +151,8 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
     }
 
 	@Override
-	public List<SysConfig> getSub(String jkey) {
-		List<SysConfig> sub = Lists.newArrayList();
+	public List<SysDict> getSub(String jkey) {
+		List<SysDict> sub = Lists.newArrayList();
 		if (StringUtils.isBlank(jkey)) {
 			return sub;
 		}
@@ -168,6 +160,31 @@ public class SysConfigService extends BaseService<SysConfigDao, SysConfig> imple
 		sub = this.baseMapper.getSub(jkey);
 		return sub;
 	}
+    @Override
+    public List<SysDict> getDictTree(String jkey) {
+        List<SysDict> sub = Lists.newArrayList();
+        if (StringUtils.isBlank(jkey)) {
+            return sub;
+        }
 
+        sub = this.baseMapper.getSub(jkey);
+        return sub;
+    }
+    private  List<JsTree> getSysDictParseJsTree( List<SysDict> sysDicts){
+        List<JsTree> jts = Lists.newArrayList();
+        for (SysDict sysDict : sysDicts) {
+            JsTree jt = new JsTree();
+            jt.setId(sysDict.getId().toString());
+            jt.setParent( "#");
+            jt.setText(sysDict.getJvalue());
+            if ("C".equals(sysDict.getType())) {
+                jt.setIcon("fa fa-home");
+            } else {
+                jt.setIcon("glyphicon glyphicon-tint");
+            }
+            jts.add(jt);
+        }
+        return jts;
+    }
 
 }

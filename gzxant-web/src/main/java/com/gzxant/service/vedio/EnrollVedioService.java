@@ -3,11 +3,8 @@ package com.gzxant.service.vedio;
 import com.gzxant.base.service.impl.BaseService;
 import com.gzxant.dao.enroll.vedio.EnrollVedioDao;
 import com.gzxant.entity.enroll.vedio.EnrollVedio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)

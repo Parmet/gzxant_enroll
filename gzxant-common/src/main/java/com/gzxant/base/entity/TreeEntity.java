@@ -1,10 +1,9 @@
 package com.gzxant.base.entity;
 
 
-import org.hibernate.validator.constraints.Length;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 数据Entity类
