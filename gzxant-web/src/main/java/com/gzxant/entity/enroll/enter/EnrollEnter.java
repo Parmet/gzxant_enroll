@@ -48,8 +48,8 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
      * 姓名
      */
     private String name;
-    @TableField("update_id")
-    private Long updateId;
+    @TableField("personnel_id")
+    private Long personnelId;
 
 
     public String getNumbers() {
@@ -115,6 +115,14 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
 
     public void setUpdateId(Long updateId) {
         this.updateId = updateId;
+    }
+
+    public Long getPersonnelId() {
+        return personnelId;
+    }
+
+    public void setPersonnelId(Long personnelId) {
+        this.personnelId = personnelId;
     }
 
     @Override

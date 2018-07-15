@@ -4,8 +4,12 @@ package com.gzxant.service.pay;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.gzxant.entity.enroll.enter.EnrollEnter;
+import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.entity.order.EnrollOrder;
 import com.gzxant.service.order.IEnrollOrderService;
+import com.gzxant.service.enroll.enter.IEnrollEnterService;
+import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.model.PayRequest;
 import com.lly835.bestpay.model.PayResponse;
@@ -13,8 +17,6 @@ import com.lly835.bestpay.service.impl.BestPayServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 @Slf4j
@@ -29,6 +31,12 @@ public class PayServiceImpl implements IPayService {
     @Autowired
     private IEnrollOrderService orderService;
 
+    @Autowired
+    private IEnrollEnterService enterService;
+
+    @Autowired
+    private IEnrollPersonnelService personnelService;
+
     public PayResponse create(EnrollOrder order) {
         PayRequest payRequest = new PayRequest();
         payRequest.setOpenid(order.getOpenid()); //用户openid
@@ -38,7 +46,7 @@ public class PayServiceImpl implements IPayService {
         payRequest.setOrderName(ORDER_NAME);
 
         PayResponse payResponse = bestPayService.pay(payRequest);
-        log.info(toJson(payResponse));
+        System.out.print(toJson(payResponse));
         return payResponse;
     }
 
@@ -53,10 +61,29 @@ public class PayServiceImpl implements IPayService {
             throw new SecurityException("订单不存在");
         }
         //支付金额
-        if (!equals(payResponse.getOrderAmount(), order.getMoney().doubleValue())) {
+        if (!equals(payResponse.getOrderAmount().doubleValue(), order.getMoney().doubleValue())) {
             throw new SecurityException("支付金额不一致");
         }
-        //todo 修改订单状态
+        // 修改订单状态
+        // 根据openid 获取参赛者报名信息
+        EnrollPersonnel person = personnelService
+                .selectOne(Condition.create()
+                        .eq("openid", order.getOpenid()));
+        if (person == null || person.getId() == null ) {
+            throw new SecurityException("该用户不存在");
+        }
+
+        EnrollEnter enter = enterService
+                .selectOne(Condition.create()
+                        .eq("numbers", person.getNumbers())
+                        .eq("type", "缴费"));
+        if (enter == null || enter.getId() == null ) {
+            throw new SecurityException("暂未提交报名信息");
+        }
+
+        // 更新缴费信息的状态为成功Y
+        enter.setState("Y");
+        enterService.updateById(enter);
 
         return payResponse;
     }
