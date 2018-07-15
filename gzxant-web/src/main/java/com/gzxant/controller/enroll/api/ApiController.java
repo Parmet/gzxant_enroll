@@ -85,7 +85,7 @@ public class ApiController extends BaseController {
         enrollEnter.setUpdateId(Long.parseLong(param.getPhone()));
 
         EnrollOrder order = new EnrollOrder();
-        order.setMoney(BigDecimal.valueOf(0.01));
+        order.setMoney(EnrollOrder.MONEY);
         order.setOpenid(param.getOpenid());
         order.setName(param.getName());
         order.setCreateId(Long.parseLong(param.getPhone()));

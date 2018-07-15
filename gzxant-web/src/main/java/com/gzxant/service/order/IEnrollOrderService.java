@@ -13,5 +13,4 @@ import com.gzxant.entity.order.EnrollOrder;
  */
 public interface IEnrollOrderService extends IBaseService<EnrollOrder> {
 
-    EnrollOrder findOrderByOpenId(String openid);
 }

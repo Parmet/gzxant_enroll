@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tecty
@@ -20,48 +20,50 @@ public class EnrollOrder extends DataEntity<EnrollOrder> {
 
     private static final long serialVersionUID = 1L;
 
-	private String openid;
-	private String name;
-	private BigDecimal money;
+    public static final BigDecimal MONEY = new BigDecimal(0.01);
+
+    private String openid;
+    private String name;
+    private BigDecimal money;
 
 
-	public String getOpenid() {
-		return openid;
-	}
+    public String getOpenid() {
+        return openid;
+    }
 
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public BigDecimal getMoney() {
-		return money;
-	}
+    public BigDecimal getMoney() {
+        return money;
+    }
 
-	public void setMoney(BigDecimal money) {
-		this.money = money;
-	}
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
 
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	@Override
-	public String toString() {
-		return "EnrollOrder{" +
-			"openid=" + openid +
-			", name=" + name +
-			", money=" + money +
-			", updateId=" + updateId +
-			"}";
-	}
+    @Override
+    public String toString() {
+        return "EnrollOrder{" +
+                "openid=" + openid +
+                ", name=" + name +
+                ", money=" + money +
+                ", updateId=" + updateId +
+                "}";
+    }
 }

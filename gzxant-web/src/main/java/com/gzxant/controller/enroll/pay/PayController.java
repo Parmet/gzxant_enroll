@@ -9,6 +9,8 @@ import com.lly835.bestpay.model.PayResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,6 +36,15 @@ public class PayController {
         model.addAttribute("payResponse", payResponse);
         model.addAttribute("returnUrl", returnUrl);
         return "/pay/pay";
+    }
+
+    @PostMapping("/notify")
+    public String notify(@RequestBody String notifyData){
+        payService.notify(notifyData);
+
+        //返回微信处理结果
+        return "pay/success";
+
     }
 
 }

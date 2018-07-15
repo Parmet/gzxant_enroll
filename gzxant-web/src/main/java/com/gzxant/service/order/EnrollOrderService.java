@@ -18,8 +18,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true, rollbackFor = Exception.class)
 public class EnrollOrderService extends BaseService<EnrollOrderDao, EnrollOrder> implements IEnrollOrderService {
 
-    @Override
-    public EnrollOrder findOrderByOpenId(String openid) {
-        return null;
-    }
 }
