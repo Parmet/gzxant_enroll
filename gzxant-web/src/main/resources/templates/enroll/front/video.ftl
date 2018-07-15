@@ -56,44 +56,36 @@
 	<div class="content-box">
 		<ul class="nav nav-pills">
 			<li role="presentation"><a href="${rc.contextPath}/front/article">活动信息</a></li>
-			<li role="presentation" class="active"><a href="${rc.contextPath}/front/video" style="background-color: #CC8E12;">视频回顾</a></li>
+			<li role="presentation" class="active"><a href="${rc.contextPath}/front/video">视频回顾</a></li>
 			<li role="presentation"><a href="${rc.contextPath}/front/result">海选结果</a></li>
 		</ul>
-		<div class="article-box">
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
+		<div class="article-box" id="video">
+			<video src="movie.mp4" controls="controls">
 				您的浏览器不支持 video 播放。
 			</video>
 			<p style="text-align: center;">海选0001号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0002号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0003号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0004号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0005号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0006号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0007号选手</p>
-			<video src="http://vali.cp31.ott.cibntv.net/youku/696D800A9237715E80F63156/03000801005B2A305A91A2003E880342A61C01-752F-688A-18F6-EB040A39D724.mp4?sid=053137431526712675391_00_Aa391e3cd0fe5b194aa6bf1bbd7feb797&sign=2dc0c5bf332d6e74f95807f3b42e838c&ctype=50&hd=1" controls="controls">
-				您的浏览器不支持 video 播放。
-			</video>
-			<p style="text-align: center;">海选0008号选手</p>
 		</div>
 	</div>
+	<script>
+	    $(function() {      // 页面加载之后调用
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "${rc.contextPath}/vedio/api/list",
+                async: true,
+                success: function(e) {
+					let m = e.message;
+                    for(var i = 0; i < m.length;i++)
+                    {
+
+                        let video = "http://127.0.0.1"+m[i].vedioUrl;
+                        let text = m[i].name;
+                        $("#video").append("<video src=\""+video+"\" controls=\"controls\">您的浏览器不支持 video 播放。</video><p style=\"text-align: center;\">"+text+"</p>");
+                    }
+                }
+            });
+        });
+	</script>
 </body>
 
 </html>
