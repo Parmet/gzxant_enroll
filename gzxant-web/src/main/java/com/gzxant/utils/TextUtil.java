@@ -29,6 +29,9 @@ public class TextUtil {
             all = all.substring(0, 49);
             all += "...";
         }
+        if (all.length() == 0) {
+            all = "文章暂无文字内容...";
+        }
         return all;
     }
 
@@ -43,8 +46,12 @@ public class TextUtil {
                 }
             }
         }
-        str = str.substring(0, str.indexOf('"'));
-        return str;
+        Integer status  = str.indexOf('"');
+        if (status > 0) {
+            str = str.substring(0, status);
+            return str;
+        }
+        return "";
     }
 
 }

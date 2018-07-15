@@ -9,8 +9,6 @@ import com.gzxant.entity.article.dto.EnrollArticleDTO;
 import com.gzxant.enums.HttpCodeEnum;
 import com.gzxant.service.article.IEnrollArticleService;
 import com.gzxant.util.ReturnDTOUtil;
-import com.gzxant.util.StringUtils;
-import com.gzxant.utils.TextUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

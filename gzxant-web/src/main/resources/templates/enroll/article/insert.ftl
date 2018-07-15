@@ -4,7 +4,7 @@
     }
     input[type=file] {
         display: inline;
-        margin: 3px 0px 10px 16px;
+        margin: 0px;
     }
     #isReleaseLabel {
         margin-bottom: 0px;
@@ -94,10 +94,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">文章内容：<span class="required">*</span></label>
                             <div class="m col-sm-8">
-                                <div class="summernote" id="summernote"></div>
+                                <textarea class="summernote" id="summernote"></textarea>
+                                <input type="hidden" name="content" id="content"/>
                             </div>
                         </div>
-                        <input type="hidden" name="content" id="content"/>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">是否发布：<span class="required">*</span></label>
@@ -112,7 +112,7 @@
 
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" onclick="infoNextStep()" class="btn btn-success">保存</button>
+                                <button type="button" onclick="infoNextStep()" class="btn btn-success">保存</button>
                             </div>
                         </div>
 
@@ -125,8 +125,6 @@
 </div>
 
 <script type="text/javascript">
-
-
 
     action = "${action}";
     function  cusFunction() {
@@ -178,12 +176,22 @@
     function infoNextStep() {
         //summernote取值
         var content = $("#summernote").summernote('code');
-        $("#content").val(content);
-        alert("content:" + content);
-        info_validate.form();
+        var title = $("input[name='name']").val();
+        if (title == "") {
+            layer.alert("标题不能为空");
+            return false;
+        }
+        if (content != "<p><br></p>") {
+            $("#content").val(content);
+            saveForm();
+        } else {
+            layer.alert("文章内容不能为空");
+            return false;
+        }
+        // info_validate.form();
     }
 
-    var info_validate = $('#gzxantForm');
+    /*var info_validate = $('#gzxantForm');
     var error = $('.alert-danger', info_validate);
     info_validate.validate({
         errorElement: 'span',
@@ -199,12 +207,12 @@
         },
         messages: {
             name:{
-                required:  "请输入标题"
+                required: "请输入标题"
             },
             content:{
                 required: "请输入文章内容"
             }
         }
-    });
+    });*/
 
 </script>
