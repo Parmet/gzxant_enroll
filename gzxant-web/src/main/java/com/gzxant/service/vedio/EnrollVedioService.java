@@ -1,4 +1,4 @@
-package com.gzxant.service.enroll.vedio;
+package com.gzxant.service.vedio;
 
 import com.gzxant.base.service.impl.BaseService;
 import com.gzxant.dao.enroll.vedio.EnrollVedioDao;

@@ -5,7 +5,7 @@ import com.gzxant.base.entity.ReturnDTO;
 import com.gzxant.base.vo.DataTable;
 import com.gzxant.constant.Setting;
 import com.gzxant.entity.enroll.vedio.EnrollVedio;
-import com.gzxant.service.enroll.vedio.IEnrollVedioService;
+import com.gzxant.service.vedio.IEnrollVedioService;
 import com.gzxant.shiro.GzxantSysUser;
 import com.gzxant.util.DateUtils;
 import com.gzxant.util.FileUtils;

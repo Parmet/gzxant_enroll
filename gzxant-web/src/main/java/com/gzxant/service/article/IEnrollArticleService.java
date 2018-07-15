@@ -2,8 +2,8 @@ package com.gzxant.service.article;
 
 
 import com.gzxant.base.service.IBaseService;
-import com.gzxant.entity.article.EnrollArticle;
-import com.gzxant.entity.article.dto.EnrollArticleDTO;
+import com.gzxant.entity.enroll.article.EnrollArticle;
+import com.gzxant.entity.enroll.article.dto.EnrollArticleDTO;
 
 import java.util.List;
 

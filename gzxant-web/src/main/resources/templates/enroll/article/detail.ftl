@@ -4,7 +4,7 @@
     }
     input[type=file] {
         display: inline;
-        margin: 3px 0px 10px 16px;
+        margin: 0px;
     }
     #isReleaseLabel {
         margin-bottom: 0px;
@@ -71,7 +71,7 @@
                         <#if action !='detail'>
                             <div class="form-actions fluid">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <button type="submit" onclick="infoNextStep()" class="btn btn-success">保存</button>
+                                    <button type="button" onclick="infoNextStep()" class="btn btn-success">保存</button>
                                 </div>
                             </div>
                         </#if>
@@ -86,6 +86,13 @@
 <script type="text/javascript">
 
     action = "${action}";
+    $(function() {
+       if (action == "detail") {
+           $('#summernote').summernote('disable');
+           $("input[name='name']").prop("disabled",true);
+           $("input[name='isRelease']").prop("disabled",true);
+       }
+    });
     function  cusFunction() {
         console.info("提交之前，最后执行自定义的函数");
     }
@@ -136,11 +143,22 @@
     function infoNextStep() {
         //summernote取值
         var content = $("#summernote").summernote('code');
-        $("#content").val(content);
-        info_validate.form();
+        var title = $("input[name='name']").val();
+        if (title == "") {
+            layer.alert("标题不能为空");
+            return false;
+        }
+        if (content != "<p><br></p>") {
+            $("#content").val(content);
+            saveForm();
+        } else {
+            layer.alert("文章内容不能为空");
+            return false;
+        }
+        // info_validate.form();
     }
 
-    var info_validate = $('#gzxantForm');
+    /*var info_validate = $('#gzxantForm');
     var error = $('.alert-danger', info_validate);
     info_validate.validate({
         errorElement: 'span',
@@ -162,6 +180,6 @@
                 required: "请输入文章内容"
             }
         }
-    });
+    });*/
 
 </script>

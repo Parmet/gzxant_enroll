@@ -1,4 +1,4 @@
-package com.gzxant.entity.article.dto;
+package com.gzxant.entity.enroll.article.dto;
 
 /**
  * @author: Fatal
