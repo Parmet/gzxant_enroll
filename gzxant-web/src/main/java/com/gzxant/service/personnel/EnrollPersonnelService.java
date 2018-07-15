@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.dao.enroll.personnel.EnrollPersonnelDao;
-import com.gzxant.service.enroll.personnel.IEnrollPersonnelService;
+import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.base.service.impl.BaseService;
 
 /**
@@ -22,6 +22,8 @@ import com.gzxant.base.service.impl.BaseService;
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
 public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, EnrollPersonnel> implements IEnrollPersonnelService {
+    private static String prefix;
+
     private static int RESULT_SUCCESS = 1000;
     private static int PARARM_FAIL = 1001;
     private static int NOT_RESULT_SUCCESS = 1002;
@@ -71,18 +73,27 @@ public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, Enro
         if (StringUtils.isEmpty(param.getName()) || StringUtils.isChinese(param.getName())) {
             return false;
         }
-        if (StringUtils.isEmpty(param.getPassword())) {
+        if (StringUtils.isEmpty(param.getPassword())||!StringUtils.isPassword(param.getPassword())) {
             return false;
         }
-        if (StringUtils.isMobile(param.getPhone())) {
+        if (!StringUtils.isMobile(param.getPhone())||StringUtils.isEmpty(param.getPhone())) {
             return false;
         }
-        if (StringUtils.isIDCard(param.getIdCard())) {
+        if (!StringUtils.isIDCard(param.getIdCard())||StringUtils.isEmpty(param.getIdCard())) {
             return false;
         }
         if (StringUtils.isEmpty(param.getPlace())) {
             return false;
         }
+        int count=selectAllcount();
+        if(count<10){
+            prefix="00";
+        }else if(10<count||count<100){
+            prefix="0";
+        }else {
+            prefix="";
+        }
+        param.setNumbers(prefix+(count+1));
         return insert(param);
     }
     /**
@@ -91,7 +102,7 @@ public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, Enro
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public int selectAllcount(){
-        return selectAllcount();
+        return selectList(null).size();
     }
     /**
      * 检查用户是否存在

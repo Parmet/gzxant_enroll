@@ -9,6 +9,8 @@ import com.lly835.bestpay.model.PayRequest;
 import com.lly835.bestpay.model.PayResponse;
 import com.lly835.bestpay.service.impl.BestPayServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class PayServiceImpl implements IPayService {
 
     private static final String ORDER_NAME = "报名费支付";
+    protected Logger logger= LoggerFactory.getLogger(getClass());
 
     private static String toJson(Object object) {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -37,7 +40,7 @@ public class PayServiceImpl implements IPayService {
         payRequest.setOrderName(ORDER_NAME);
 
         PayResponse payResponse = bestPayService.pay(payRequest);
-        log.info(toJson(payResponse));
+        logger.info(toJson(payResponse));
         return payResponse;
     }
 }

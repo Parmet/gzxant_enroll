@@ -39,13 +39,29 @@ public class EnrollEnterService extends BaseService<EnrollEnterDao, EnrollEnter>
     /**
      * 登录
      *
-     * @param personnel_id
+     * @param numbers
      * @return
      */
     @Override
-    public EnrollEnter findbyIdEnterdate(String personnel_id) {
-        EnrollEnter enrollEnter = selectOne(Condition.create().in("personnel_id",personnel_id));
+    public EnrollEnter findbyIdEnterdate(String numbers) {
+        if(StringUtils.isEmpty(numbers)){
+            return null;
+        }
+        EnrollEnter enrollEnter = selectOne(Condition.create().eq("numbers",numbers));
         return enrollEnter;
+    }
+    /**
+     * 条件查询
+     * @param list
+     * @return
+     */
+    @Override
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public List<EnrollEnter> findByParasEnterdate(List<String> list){
+        if(list==null){
+            return null;
+        }
+        return selectList(Condition.create().in("numbers",list));
     }
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)

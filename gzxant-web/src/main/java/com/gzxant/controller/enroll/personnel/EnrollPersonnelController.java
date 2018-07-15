@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gzxant.entity.SysUser;
+import com.gzxant.entity.enroll.enter.EnrollEnter;
+import com.sun.tools.javac.comp.Enter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gzxant.annotation.SLog;
 import com.gzxant.base.entity.ReturnDTO;
 import com.gzxant.base.vo.DataTable;
-import com.gzxant.service.enroll.personnel.IEnrollPersonnelService;
+import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
+import com.gzxant.service.enroll.enter.IEnrollEnterService;
 import com.gzxant.util.ReturnDTOUtil;
 import com.gzxant.base.controller.BaseController;
 
@@ -40,6 +43,8 @@ import javax.servlet.http.HttpServletResponse;
 public class EnrollPersonnelController extends BaseController {
 	@Autowired
 	private IEnrollPersonnelService enrollPersonnelService;
+    @Autowired
+    private IEnrollEnterService enrollEnterService;
 
 	@ApiOperation(value = "进入参赛者信息列表界面", notes = "进入参赛者信息列表界面")
 	@GetMapping(value = "")
@@ -146,6 +151,19 @@ public class EnrollPersonnelController extends BaseController {
 	@PostMapping(value = "/delete")
 	@ResponseBody
 	public ReturnDTO delete(@RequestParam("ids") List<Long> ids) {
+
+	    List<String> enrollEnterList=new ArrayList<>();
+        List<EnrollPersonnel> listEnroll=enrollPersonnelService.selectBatchIds(ids);
+        for(EnrollPersonnel list:listEnroll){
+            enrollEnterList.add(list.getNumbers());
+        }
+        List<Long> enterIds=new ArrayList<>();
+        List<EnrollEnter> listEnter= enrollEnterService.findByParasEnterdate(enrollEnterList);
+        for(EnrollEnter list:listEnter){
+            enterIds.add(list.getId());
+        }
+        enrollEnterService.deleteBatchIds(enterIds);
+
 		boolean success = enrollPersonnelService.deleteBatchIds(ids);
 		if (success) {
 			return ReturnDTOUtil.success();

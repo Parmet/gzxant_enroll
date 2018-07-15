@@ -8,7 +8,7 @@ import java.util.List;
 import com.gzxant.controller.enroll.personnel.EnrollPersonnelController;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.service.ISysDictService;
-import com.gzxant.service.enroll.personnel.IEnrollPersonnelService;
+import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.util.StringUtils;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.http.util.TextUtils;
