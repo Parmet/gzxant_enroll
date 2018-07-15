@@ -129,9 +129,9 @@
 	</div>
 </body>
 <script type="text/javascript">
-	var return_url = "${rc.contextPath}/front/index";
-	var pay_api = "http://wings.natapp1.cc/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
-	var enroll_api = "${rc.contextPath}/api/insert";
+	var return_url = "http://api.gzxant.com/gzxant/enroll/front/index";
+	var pay_api = "http://api.gzxant.com/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
+	var enroll_api = "${rc.contextPath}/api/enroll";
 
 	var area = new LArea();
 	area.init({

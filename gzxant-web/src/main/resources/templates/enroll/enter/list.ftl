@@ -60,20 +60,14 @@
                 checkbox: true
             },
             {
+                field: 'numbers',
+                title: '编号'
+            },
+            {
                 field: 'name',
                 title: '姓名'
             },
-            {
-                field: 'state',
-                title: '状态',
-                formatter : function(value, row, index) {
-                    if (value == 'Y') {
-                        return '<span class="label label-primary">成功</span>';
-                    } else if (value == 'N') {
-                        return '<span class="label label-danger">失败</span>';
-                    }
-                }
-            },
+
             {
                 field: 'fraction',
                 title: '分数'
@@ -89,6 +83,17 @@
             {
                 field: 'type',
                 title: '类型'
+            },
+            {
+                field: 'state',
+                title: '状态',
+                formatter : function(value, row, index) {
+                    if (value == 'Y') {
+                        return '<span class="label label-primary">成功</span>';
+                    } else if (value == 'N') {
+                        return '<span class="label label-danger">失败</span>';
+                    }
+                }
             },
 
             {

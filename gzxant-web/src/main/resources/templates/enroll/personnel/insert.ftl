@@ -35,7 +35,7 @@
                             <label class="col-sm-3 control-label">身份证号码：<span class="required">*</span></label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="idCard"
-                                       value="" placeholder="请输入手机号码"/>
+                                       value="" placeholder="请输入身份证号码"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -113,8 +113,8 @@
         focusInvalid: true,
         rules: {
             name: {
-                required: true,
-                remote: '${rc.contextPath}/personnel/check/${enrollPersonnel.id}'
+                required: true
+
             },
             phone: {
                 required: true,
@@ -141,7 +141,6 @@
         messages: {
             name:{
                 required:  "请输入登录名",
-                remote: "用户名已经存在"
 
             },
             phone:{

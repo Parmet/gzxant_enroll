@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.gzxant.service.personnel.IEnrollPersonnelService;
+import com.gzxant.service.enroll.enter.IEnrollEnterService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,14 +31,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ApiController extends BaseController {
+    private static String Prefix="MB000";
     private static int RESULT_SUCCESS = 1000;
     private static int PARARM_FAIL = 1001;
     private static int NOT_RESULT_SUCCESS = 1002;
     @Autowired
-    private com.gzxant.service.enroll.personnel.IEnrollPersonnelService enrollPersonnelService;
+    private IEnrollPersonnelService enrollPersonnelService;
 
     @Autowired
-    private com.gzxant.service.enroll.enter.IEnrollEnterService enrollEnterService;
+    private IEnrollEnterService enrollEnterService;
 
     @Autowired
     private IEnrollOrderService orderService;
@@ -50,36 +52,39 @@ public class ApiController extends BaseController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/insert", method = {RequestMethod.POST})
-    public ReturnDTO login(Model model, EnrollPersonnel param) throws IOException {
+    @RequestMapping(value = "/enroll", method = {RequestMethod.POST})
+    public ReturnDTO enroll(Model model, EnrollPersonnel param) throws IOException {
         EnrollEnter enrollEnter = new EnrollEnter();
-        if (StringUtils.isChinese(param.getName())) {
+        if (param == null) {
+            return new ReturnDTO(PARARM_FAIL, "参数不能为空");
+        }
+
+        if (StringUtils.isEmpty(param.getName()) || StringUtils.isChinese(param.getName())) {
             return new ReturnDTO(PARARM_FAIL, "姓名必须是汉字");
         }
-        if (StringUtils.isEmpty(param.getPassword())) {
-            return new ReturnDTO(PARARM_FAIL, "密码不能为空");
+        if (StringUtils.isEmpty(param.getPassword())||StringUtils.isPassword(param.getPassword())) {
+            return new ReturnDTO(PARARM_FAIL, "密码不能小于6位数");
         }
-        if (StringUtils.isMobile(param.getPhone())) {
-            return new ReturnDTO(PARARM_FAIL, "请输入正确额密码");
+        if (StringUtils.isMobile(param.getPhone())||StringUtils.isEmpty(param.getPhone())) {
+            return new ReturnDTO(PARARM_FAIL, "请输入正确的手机号码");
         }
-        if (StringUtils.isIDCard(param.getIdCard())) {
+        if (StringUtils.isIDCard(param.getIdCard())||StringUtils.isEmpty(param.getIdCard())) {
             return new ReturnDTO(PARARM_FAIL, "请输入18或15位的身份证号码");
         }
         if (StringUtils.isEmpty(param.getPlace())) {
             return new ReturnDTO(PARARM_FAIL, "报名地点不能为空");
         }
-        if (StringUtils.isEmpty(param.getStyle())) {
-            return new ReturnDTO(PARARM_FAIL, "风格不能为空");
-        }
+
         param.setCreateId(Long.parseLong(param.getPhone()));
         param.setUpdateId(Long.parseLong(param.getPhone()));
-
-        enrollPersonnelService.insert(param);
-        enrollEnter.setNumbers(param.getNumbers());
+        boolean isFlag=enrollPersonnelService.insertBean(param);
+        if (!isFlag) {
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
+        }
         enrollEnter.setPlace(param.getPlace());
         enrollEnter.setName(param.getName());
         enrollEnter.setType("缴费");
-        enrollEnter.setState("成功");
+        enrollEnter.setState("Y");
         enrollEnter.setNumbers(param.getNumbers());
         enrollEnter.setCreateId(Long.parseLong(param.getPhone()));
         enrollEnter.setUpdateId(Long.parseLong(param.getPhone()));
@@ -90,11 +95,14 @@ public class ApiController extends BaseController {
         order.setName(param.getName());
         order.setCreateId(Long.parseLong(param.getPhone()));
         order.setUpdateId(Long.parseLong(param.getPhone()));
-        orderService.insert(order);
+        boolean orderFlag=orderService.insert(order);
+        if(!orderFlag){
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "生成订单失败!");
+        }
 
-        boolean isFlag1 = enrollEnterService.insert(enrollEnter);
+        boolean isFlag1 = enrollEnterService.insertBean(enrollEnter);
         if (!isFlag1) {
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "数据插入失败");
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
         }
         return new ReturnDTO(RESULT_SUCCESS, "插入成功");
     }
@@ -115,7 +123,7 @@ public class ApiController extends BaseController {
         if (StringUtils.isEmpty(name)) {
             return new ReturnDTO(PARARM_FAIL, "用户名不能为空");
         }
-        if (StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(password)||StringUtils.isPassword(password)) {
             return new ReturnDTO(PARARM_FAIL, "密码不能为空");
         }
         String md5password = PasswordUtils.entryptPassword(password);

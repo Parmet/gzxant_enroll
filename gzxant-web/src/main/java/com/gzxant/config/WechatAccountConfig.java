@@ -41,5 +41,67 @@ public class WechatAccountConfig {
      */
     private String openIdReturnUrl;
 
+    public String getMpAppId() {
+        return mpAppId;
+    }
 
+    public void setMpAppId(String mpAppId) {
+        this.mpAppId = mpAppId;
+    }
+
+    public String getMpAppSecret() {
+        return mpAppSecret;
+    }
+
+    public void setMpAppSecret(String mpAppSecret) {
+        this.mpAppSecret = mpAppSecret;
+    }
+
+    public String getMchId() {
+        return mchId;
+    }
+
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+
+    public String getMchKey() {
+        return mchKey;
+    }
+
+    public void setMchKey(String mchKey) {
+        this.mchKey = mchKey;
+    }
+
+    public String getKeyPath() {
+        return keyPath;
+    }
+
+    public void setKeyPath(String keyPath) {
+        this.keyPath = keyPath;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
+
+    public String getOpenIdUrl() {
+        return openIdUrl;
+    }
+
+    public void setOpenIdUrl(String openIdUrl) {
+        this.openIdUrl = openIdUrl;
+    }
+
+    public String getOpenIdReturnUrl() {
+        return openIdReturnUrl;
+    }
+
+    public void setOpenIdReturnUrl(String openIdReturnUrl) {
+        this.openIdReturnUrl = openIdReturnUrl;
+    }
 }

@@ -19,11 +19,7 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 参赛者编号id
-     */
-    @TableField("personnel_id")
-    private Long personnelId;
+
     /**
      * 地址
      */
@@ -64,13 +60,6 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
         this.numbers = numbers;
     }
 
-    public Long getPersonnelId() {
-        return personnelId;
-    }
-
-    public void setPersonnelId(Long personnelId) {
-        this.personnelId = personnelId;
-    }
 
     public String getPlace() {
         return place;
@@ -136,7 +125,6 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
     @Override
     public String toString() {
         return "EnrollEnter{" +
-                "personnelId=" + personnelId +
                 ", place=" + place +
                 ", state=" + state +
                 ", fraction=" + fraction +

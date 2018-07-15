@@ -10,6 +10,13 @@
                 <div class="">
                     <form class="form-horizontal form-bordered" id="gzxantForm">
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">参赛编号：<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="numbers"
+                                       value="" placeholder="参赛编号"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">姓名：<span class="required">*</span></label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="name"
@@ -101,6 +108,10 @@
         errorClass: 'error',
         focusInvalid: true,
         rules: {
+            numbers:{
+                required: true,
+                remote: '${rc.contextPath}/enter/check/'
+            },
             name: {
                 required: true
             },
@@ -121,6 +132,10 @@
             }
         },
         messages: {
+            numbers:{
+                required:  "请输入编号",
+                remote:  "还没有改参赛人员，请选添加"
+            },
             name:{
                 required:  "请输入登录名"
             },

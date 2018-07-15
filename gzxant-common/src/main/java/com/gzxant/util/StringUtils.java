@@ -24,7 +24,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 正则表达式：验证手机号
      */
-    public static final String REGEX_MOBILE = "/^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})|(16[0-9]{9})$/";
+    public static final String REGEX_MOBILE = "^[1]([3][0-9]{1}|59|58|88|89|66)[0-9]{8}$";
     /**
      * 正则表达式：验证用户名
      */
@@ -126,14 +126,58 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return Pattern.matches(REGEX_MOBILE, mobile);
     }
     /**
-     * 校验身份证
-     *
-     * @param idCard
-     * @return 校验通过返回true，否则返回false
+     * 检查身份证号码合法性
+     * @param idCardNo
+     * @return
+     * @throws Exception
      */
-    public static boolean isIDCard(String idCard) {
-        return Pattern.matches(REGEX_ID_CARD, idCard);
+    public static boolean isIDCard(String idCardNo) {
+        if(StringUtils.isBlank(idCardNo)){
+            return false;
+        }
+
+        int length = idCardNo.length();
+        if(length == 15){
+            Pattern p = Pattern.compile("^[0-9]*$");
+            Matcher m = p.matcher(idCardNo);
+            return m.matches();
+        }else if(length == 18){
+            String front_17 = idCardNo.substring(0, idCardNo.length() - 1);//号码前17位
+            String verify = idCardNo.substring(17, 18);//校验位(最后一位)
+            Pattern p = Pattern.compile("^[0-9]*$");
+            Matcher m = p.matcher(front_17);
+            if(!m.matches()){
+                return false;
+            }else{
+                return checkVerify(front_17, verify);
+            }
+        }
+        return false;
     }
+
+    /**
+     * 校验验证位合法性
+     * @param front_17
+     * @param verify
+     * @return
+     * @throws Exception
+     */
+    private static boolean checkVerify(String front_17,String verify) {
+        int[] wi = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2,1};
+        String[] vi = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
+        int s = 0;
+        for(int i = 0; i<front_17.length(); i++){
+            int ai = Integer.parseInt(front_17.charAt(i) + "");
+            s += wi[i]*ai;
+        }
+        int y = s % 11;
+        String v = vi[y];
+        if(!(verify.toUpperCase().equals(v))){
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 是否包含字符串
      *
@@ -439,4 +483,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        System.out.print(isMobile("16620069407"));
+    }
 }
+
