@@ -1,51 +1,34 @@
 package com.gzxant.controller.enroll.enter;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.gzxant.annotation.SLog;
+import com.gzxant.base.controller.BaseController;
+import com.gzxant.base.entity.ReturnDTO;
+import com.gzxant.base.vo.DataTable;
+import com.gzxant.common.service.dict.ISysDictService;
 import com.gzxant.controller.enroll.personnel.EnrollPersonnelController;
+import com.gzxant.entity.enroll.enter.EnrollEnter;
 import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
-import com.gzxant.service.ISysDictService;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import org.apache.commons.lang3.StringUtils;
+import com.gzxant.service.enroll.enter.IEnrollEnterService;
+import com.gzxant.util.ReturnDTOUtil;
+import io.swagger.annotations.ApiOperation;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.gzxant.annotation.SLog;
-import com.gzxant.base.entity.ReturnDTO;
-import com.gzxant.base.vo.DataTable;
-import com.gzxant.service.enroll.enter.IEnrollEnterService;
-import com.gzxant.entity.enroll.enter.EnrollEnter;
-import com.gzxant.util.ReturnDTOUtil;
-import com.gzxant.base.controller.BaseController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>

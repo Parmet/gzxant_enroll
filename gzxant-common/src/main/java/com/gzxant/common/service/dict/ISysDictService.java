@@ -1,8 +1,9 @@
-package com.gzxant.base.service;
+package com.gzxant.common.service.dict;
 
-import com.gzxant.base.entity.SysDict;
+import com.gzxant.base.service.IBaseService;
 import com.gzxant.base.vo.JsTree;
 import com.gzxant.base.vo.PCAjaxVO;
+import com.gzxant.common.entity.dict.SysDict;
 
 import java.util.List;
 

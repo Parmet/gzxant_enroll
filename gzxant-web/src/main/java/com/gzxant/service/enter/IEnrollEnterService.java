@@ -1,9 +1,7 @@
 package com.gzxant.service.enroll.enter;
 
-import com.gzxant.entity.enroll.enter.EnrollEnter;
 import com.gzxant.base.service.IBaseService;
-import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
-import org.springframework.web.multipart.MultipartFile;
+import com.gzxant.entity.enroll.enter.EnrollEnter;
 
 /**
  * <p>

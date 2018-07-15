@@ -1,7 +1,7 @@
 package com.gzxant.service.enroll.personnel;
 
-import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 import com.gzxant.base.service.IBaseService;
+import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
 
 /**
  * <p>

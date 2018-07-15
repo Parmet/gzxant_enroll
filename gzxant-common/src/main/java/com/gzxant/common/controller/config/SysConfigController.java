@@ -1,8 +1,9 @@
-package com.gzxant.base.controller;
+package com.gzxant.common.controller.config;
 
 import com.alibaba.fastjson.JSON;
-import com.gzxant.base.service.ISysConfigService;
+import com.gzxant.base.controller.BaseController;
 import com.gzxant.base.vo.PCAjaxVO;
+import com.gzxant.common.service.config.ISysConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

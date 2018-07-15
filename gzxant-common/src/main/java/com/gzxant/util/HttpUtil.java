@@ -134,7 +134,10 @@ public class HttpUtil {
     }
 
     public static void main(String[] args) {
-        String param = "{\"id\":1,\"method\":\"send\",\"params\":{\"userid\":\"200001\",\"password\":\"abcdhjskdfjjjjjjjjjjjjjjjjjjsjk65\",\"submit\":[{\"content\":\"验证码为1234。【签名】\",\"phone\":\"12345678910\"}]}}";
-        System.out.print(doPostJson("http://112.74.139.4:8002/sms3_api/jsonapi/jsonrpc2.jsp", param));
+        String param = "{\"id\":\"1531642471168\",\"method\":\"send\",\"params\":{\"password\":\"123456\",\"submit\":[{\"content\":\"欢迎报名唱响春天，您的验证码是：666126，请勿告知他人。【唱响春天】\",\"phone\":\"13143367488\"}],\"userid\":\"200001\"}}";
+        String result = doPostJson("http://112.74.139.4:8002/sms3_api/jsonapi/jsonrpc2.jsp", param);
+        System.out.println("=================================result==============================");
+        System.out.println(result);
+        System.out.println("=================================result==============================");
     }
 }

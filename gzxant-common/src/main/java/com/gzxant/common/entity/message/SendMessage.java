@@ -1,9 +1,12 @@
-package com.gzxant.base.entity;
+package com.gzxant.common.entity.message;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class MessageSend {
+public class SendMessage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private List<String> Phone;
     private Map<String, Object> param;

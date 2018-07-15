@@ -1,10 +1,10 @@
 package com.gzxant.config.listener;
 
-import javax.servlet.ServletContext;
-import javax.servlet.annotation.WebListener;
-
 import org.slf4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
+
+import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebListener;
 
 /**
  * Created by chenjianan on 2016/12/16-10:30.

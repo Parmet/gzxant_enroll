@@ -2,11 +2,9 @@ package com.gzxant.entity.enroll.article;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gzxant.base.entity.DataEntity;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;

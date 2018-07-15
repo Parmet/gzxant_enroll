@@ -1,7 +1,7 @@
 package com.gzxant.dao.enroll.enter;
 
-import com.gzxant.entity.enroll.enter.EnrollEnter;
 import com.gzxant.base.dao.CrudDao;
+import com.gzxant.entity.enroll.enter.EnrollEnter;
 
 /**
  * <p>

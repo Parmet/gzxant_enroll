@@ -1,7 +1,8 @@
-package com.gzxant.base.entity;
+package com.gzxant.common.entity.dict;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.gzxant.base.entity.TreeEntity;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;

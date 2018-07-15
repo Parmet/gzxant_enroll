@@ -1,6 +1,5 @@
 package com.gzxant.entity.order;
 
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.gzxant.base.entity.DataEntity;
 
