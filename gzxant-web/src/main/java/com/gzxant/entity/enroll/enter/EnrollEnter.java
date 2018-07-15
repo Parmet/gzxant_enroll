@@ -1,10 +1,10 @@
 package com.gzxant.entity.enroll.enter;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.gzxant.base.entity.DataEntity;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -48,8 +48,8 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
      * 姓名
      */
     private String name;
-    @TableField("personnel_id")
-    private Long personnelId;
+    @TableField("update_id")
+    private Long updateId;
 
 
     public String getNumbers() {
@@ -115,14 +115,6 @@ public class EnrollEnter extends DataEntity<EnrollEnter> {
 
     public void setUpdateId(Long updateId) {
         this.updateId = updateId;
-    }
-
-    public Long getPersonnelId() {
-        return personnelId;
-    }
-
-    public void setPersonnelId(Long personnelId) {
-        this.personnelId = personnelId;
     }
 
     @Override
