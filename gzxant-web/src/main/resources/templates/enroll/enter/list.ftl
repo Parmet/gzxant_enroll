@@ -65,20 +65,23 @@
             },
             {
                 field: 'name',
-                title: '姓名'
+                title: '姓名',
+                width: '100px'
             },
 
             {
                 field: 'fraction',
-                title: '分数'
+                title: '分数',
+                width: '100px'
             },
             {
                 field: 'song',
-                title: '歌曲'
+                title: '歌曲',
+                width: '100px'
             },
             {
                 field: 'place',
-                title: '报名地点'
+                title: '报名地点',
             },
             {
                 field: 'type',
