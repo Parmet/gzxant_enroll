@@ -20,7 +20,7 @@
         <ehcache.core.version>2.6.11</ehcache.core.version>
         <ehcache.version>3.3.1</ehcache.version>
         <shiro.version>1.4.0</shiro.version>
-        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
         <gzxant.version>1.0-SNAPSHOT</gzxant.version>
         <swagger.version>2.7.0</swagger.version>
         <druid.version>1.1.1</druid.version>

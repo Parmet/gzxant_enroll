@@ -22,129 +22,140 @@ public class EnrollPersonnel extends DataEntity<EnrollPersonnel> {
     /**
      * 参赛者姓名
      */
-	private String name;
+    private String name;
     /**
      * 手机号
      */
-	private String phone;
+    private String phone;
     /**
      * 身份证
      */
-	@TableField("id_card")
-	private String idCard;
+    @TableField("id_card")
+    private String idCard;
     /**
      * 报名地点
      */
-	private String place;
+    private String place;
     /**
      * 工作单位
      */
-	private String company;
+    private String company;
     /**
      * 职业
      */
-	private String profession;
+    private String profession;
     /**
      * 密码
      */
-	private String password;
+    private String password;
     /**
      * 歌唱风格
      */
-	private String style;
-	@TableField("update_id")
-	private Long updateId;
+    private String style;
+    /**
+     * 个人编号
+     */
+    private String numbers;
 
+    private String openid;
 
-	public String getName() {
-		return name;
-	}
+    public String getOpenid() {
+        return openid;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getNumbers() {
+        return numbers;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setNumbers(String numbers) {
+        this.numbers = numbers;
+    }
 
-	public String getIdCard() {
-		return idCard;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPlace() {
-		return place;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setPlace(String place) {
-		this.place = place;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public String getCompany() {
-		return company;
-	}
+    public String getIdCard() {
+        return idCard;
+    }
 
-	public void setCompany(String company) {
-		this.company = company;
-	}
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
 
-	public String getProfession() {
-		return profession;
-	}
+    public String getPlace() {
+        return place;
+    }
 
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
+    public void setPlace(String place) {
+        this.place = place;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getCompany() {
+        return company;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
-	public String getStyle() {
-		return style;
-	}
+    public String getProfession() {
+        return profession;
+    }
 
-	public void setStyle(String style) {
-		this.style = style;
-	}
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
-	public Long getUpdateId() {
-		return updateId;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setUpdateId(Long updateId) {
-		this.updateId = updateId;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public String getStyle() {
+        return style;
+    }
 
-	@Override
-	public String toString() {
-		return "EnrollPersonnel{" +
-			"name=" + name +
-			", phone=" + phone +
-			", idCard=" + idCard +
-			", place=" + place +
-			", company=" + company +
-			", profession=" + profession +
-			", password=" + password +
-			", style=" + style +
-			", updateId=" + updateId +
-			"}";
-	}
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "EnrollPersonnel{" +
+                "name=" + name +
+                ", phone=" + phone +
+                ", idCard=" + idCard +
+                ", place=" + place +
+                ", company=" + company +
+                ", profession=" + profession +
+                ", password=" + password +
+                ", style=" + style +
+                ", updateId=" + updateId +
+                "}";
+    }
 }
