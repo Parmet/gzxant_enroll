@@ -102,7 +102,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="account" class="col-xs-4 col-sm-4 col-md-4 control-label">手机号</label>
+				<label for="phone" class="col-xs-4 col-sm-4 col-md-4 control-label">手机号</label>
 				<div class="col-xs-8 col-sm-8 col-md-8">
 					<input type="number" class="form-control" name="phone" id="phone" placeholder="请输入手机号">
 				</div>
@@ -110,13 +110,13 @@
 			<div class="form-group">
 				<label for="password" class="col-xs-4 col-sm-4 col-md-4 control-label">密码</label>
 				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="password" class="form-control" id="password" maxlength="16" name="password" placeholder="请输入密码">
+					<input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="confirmPassword" class="col-xs-4 col-sm-4 col-md-4 control-label">确认密码</label>
 				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="password" class="form-control" id="confirmPassword" maxlength="16" name="confirmPassword" placeholder="请输入密码">
+					<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="请输入密码">
 				</div>
 			</div>
 			<div class="row">
@@ -147,20 +147,24 @@
 		errorClass: 'em',
 		focusInvalid: true,
 		rules: {
+			place: {
+                required: true
+            },
  			name: {
-                required: true,
-                remote: '${rc.contextPath}/personnel/check/'
+                required: true
             },
             phone: {
                 required: true,
                 number:true,
                 isMobile:true,
                 maxlength:11,
-                maxlength:11
+                minlength:11,
+                remote: '${rc.contextPath}/personnel/check/'
             },
             password: {
                 required: true,
-                minlength:6
+                minlength:6,
+                maxlength: 16
             },
             idCard: {
                 required: true,
@@ -177,11 +181,12 @@
 				number:"只能输入数字",
 				isMobile:"请输入正确的手机号码",
 				maxlength:"请输入11位的手机号码",
-				maxlength:"请输入11位的手机号码"
+				minlength:"请输入11位的手机号码"
 			},
 			password:{
 				required:  "请输入密码",
-				minlength:"密码不能小于6位数"
+				minlength: "密码不能小于6位数",
+				maxlength: "密码最长16位"
 			},
             idCard: {
                 required:"请输入身份号码",
@@ -380,7 +385,9 @@
 			if (validate.isNotEmpty(data)
 				&& data.hasOwnProperty("code")
 				&& data.code == 1000) {
-				window.location.href = pay_api;
+				return_url = "${rc.contextPath}/gzxant/enroll/front/index";
+				window.location.href = result_url;
+				//window.location.href = pay_api;
 				layer.alert("报名成功！");
 			} else {
 				layer.alert(data.error);
