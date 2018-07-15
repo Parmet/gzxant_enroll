@@ -45,24 +45,28 @@
     function getcolumns() {
         var c = [
             {
-                checkbox: true
+                checkbox: true,
+                width: 40
             },
             {
                 field: 'name',
-                title: '标题'
+                title: '标题',
+                width: 250,
             },
             {
-                field: 'content',
-                title: '文章内容'
+                field: 'subcontent',
+                title: '文章内容',
             },
             {
                 field: 'isReleaseStr',
-                title: '发布状态'
+                title: '发布状态',
+                align: 'center'
             },
             {
                 title: '操作',
                 field: 'id',
                 align: 'center',
+                width: 140,
                 formatter: function (value, row, index) {
 
                     return dt_edit_button(row)+dt_detail_button(row)+dt_delete_button(row);

@@ -18,6 +18,12 @@ spring:
     request-context-attribute: rc
     charset: UTF-8
 
+  #定义图片上传的最大限制
+  http:
+    multipart:
+      max-file-size: 100Mb
+      max-request-size: 1000Mb
+
 sitemesh:
   contentPath: /*
   decoratorPath: classpath:/layouts/default.jsp

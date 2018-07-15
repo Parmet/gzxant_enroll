@@ -4,7 +4,7 @@
     }
     input[type=file] {
         display: inline;
-        margin: 3px 0px 10px 16px;
+        margin: 0px;
     }
     #isReleaseLabel {
         margin-bottom: 0px;
@@ -12,6 +12,7 @@
     }
 
     .m{ width: 800px; margin-left: auto; margin-right: auto; }
+
 
 </style>
 
@@ -24,11 +25,64 @@
 
 <script>
     $(function(){
-        $('.summernote').summernote({
+        var $summernote = $('.summernote').summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'hr']]
+            ],
             height: 200,
-            tabsize: 2,
-            lang: 'zh-CN'
+            lang: 'zh-CN',
+            focus: true,
+            //调用图片上传
+            callbacks: {
+                onImageUpload: function (files) {
+                    sendFile($summernote, files[0]);
+                }
+            }
         });
+
+        //ajax上传图片
+        function sendFile($summernote, file) {
+            var filename = false;
+            try {
+                filename = file['name'];       //获得文件名 头像.jpg
+            } catch (e) {
+                filename = false;
+            }
+
+            var formData = new FormData();
+            formData.append("file", file);
+            formData.append("key", filename);
+
+            $.ajax({
+                url: "/gzxant/enroll/upload",//路径是你控制器中上传图片的方法，下面controller里面我会写到
+                type: 'POST',
+                data: formData,
+                cache: false,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //将图片插入编辑框
+                   /* $summernote.summernote('insertImage', data, function ($image) {
+                        $image.attr('src', "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1016502073,2105174218&fm=27&gp=0.jpg");
+                    });*/
+                    // $summernote.summernote('insertImage', "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1016502073,2105174218&fm=27&gp=0.jpg");
+                    //将第一张上传的图片放到image中
+                    $summernote.summernote('insertImage', data.message.path + data.message.fileName);
+                    var $img = $("#image");
+                    if ($img.val() == "") {
+                        $img.val(data.message.path + data.message.fileName);
+                    }
+                    alert($img.val());
+                },
+            });
+        }
     });
 </script>
 
@@ -49,10 +103,11 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">文章内容：<span class="required">*</span></label>
                             <div class="m col-sm-8">
-                                <div class="summernote" id="summernote">请输入文章内容</div>
+                                <textarea class="summernote" id="summernote"></textarea>
+                                <input type="hidden" name="content" id="content"/>
                             </div>
                         </div>
-                        <input type="hidden" name="content" id="content"/>
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">是否发布：<span class="required">*</span></label>
                             <label id="isReleaseLabel" class="col-sm-3">
@@ -62,11 +117,11 @@
                         </div>
 
                         <input type="hidden" name="id" value="${enrollArticle.id}"/>
-                        <input type="hidden" name="image" value="${enrollArticle.image}" id="image"/>
+                        <input type="hidden" name="image" id="image"/>
 
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" onclick="infoNextStep()" class="btn btn-success">保存</button>
+                                <button type="button" onclick="infoNextStep()" class="btn btn-success">保存</button>
                             </div>
                         </div>
 
@@ -79,8 +134,6 @@
 </div>
 
 <script type="text/javascript">
-
-
 
     action = "${action}";
     function  cusFunction() {
@@ -127,17 +180,27 @@
                 }
             });
         })
-
     }
 
     function infoNextStep() {
         //summernote取值
         var content = $("#summernote").summernote('code');
-        $("#content").val(content);
-        info_validate.form();
+        var title = $("input[name='name']").val();
+        if (title == "") {
+            layer.alert("标题不能为空");
+            return false;
+        }
+        if (content != "<p><br></p>") {
+            $("#content").val(content);
+            saveForm();
+        } else {
+            layer.alert("文章内容不能为空");
+            return false;
+        }
+        // info_validate.form();
     }
 
-    var info_validate = $('#gzxantForm');
+    /*var info_validate = $('#gzxantForm');
     var error = $('.alert-danger', info_validate);
     info_validate.validate({
         errorElement: 'span',
@@ -153,12 +216,12 @@
         },
         messages: {
             name:{
-                required:  "请输入标题"
+                required: "请输入标题"
             },
             content:{
                 required: "请输入文章内容"
             }
         }
-    });
+    });*/
 
 </script>

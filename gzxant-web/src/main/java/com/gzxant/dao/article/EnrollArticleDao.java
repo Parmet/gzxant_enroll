@@ -1,4 +1,4 @@
-package com.gzxant.dao.enroll.article;
+package com.gzxant.dao.article;
 
 import com.gzxant.base.dao.CrudDao;
 import com.gzxant.entity.enroll.article.EnrollArticle;
