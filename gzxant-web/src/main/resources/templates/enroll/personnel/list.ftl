@@ -73,11 +73,13 @@
             },
             {
                 field: 'place',
-                title: '报名地点'
+                title: '报名地点',
+                width: '130px'
             },
             {
                 field: 'company',
-                title: '工作单位'
+                title: '工作单位',
+                width: '130px'
             },
             {
                 field: 'profession',

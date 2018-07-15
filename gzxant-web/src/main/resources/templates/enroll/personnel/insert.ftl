@@ -113,18 +113,25 @@
         focusInvalid: true,
         rules: {
             name: {
-                required: true
-
+                required: true,
+                maxlength:10
             },
             phone: {
                 required: true,
                 number:true,
                 isMobile:true,
-                maxlength:11,
+                minlength:11,
                 maxlength:11
             },
+            profession:{
+                maxlength:20
+            },
+            company:{
+                maxlength:100
+            },
             place:{
-                required: true
+                required: true,
+                maxlength:100
             },
             password: {
                 required: true,
@@ -135,13 +142,14 @@
                 idCard2:true
             },
             style: {
-                required: true
+                required: true,
+                maxlength:30
             }
         },
         messages: {
             name:{
                 required:  "请输入登录名",
-
+                maxlength:"姓名不能超过10个字"
             },
             phone:{
                 required: "请输入手机号码",
@@ -155,14 +163,22 @@
                 minlength:"密码不能小于6位数"
             },
             place:{
-                required: "请输入报名地点"
+                required: "请输入报名地点",
+                maxlength:"报名不能超过100个字"
             },
             idCard: {
                 required:"请输入身份号码",
                 idCard2:"请输入正确的身份号码"
             },
             style:{
-                required:"请输入演唱风格"
+                required:"请输入演唱风格",
+                maxlength:"风格不能超过30个字"
+            },
+            profession:{
+                maxlength:"职业不能超过20个字"
+            },
+            company:{
+                maxlength:"工作单位不能超过100个字"
             }
         }
     });

@@ -110,49 +110,61 @@
         rules: {
             numbers:{
                 required: true,
+                maxlength:32,
                 remote: '${rc.contextPath}/enter/check/'
             },
             name: {
-                required: true
+                required: true,
+                maxlength:12
             },
             type:{
                 required: true
+
             },
             fraction:{
-                required: true
+                required: true,
+                maxlength:5
             },
             song:{
-                required: true
+                required: true,
+                maxlength:20
             },
             state:{
                 required: true
             },
             place:{
-                required: true
+                required: true,
+                maxlength:100
             }
         },
         messages: {
             numbers:{
                 required:  "请输入编号",
+                maxlength:"编号不能超过32位",
                 remote:  "还没有改参赛人员，请选添加"
             },
             name:{
-                required:  "请输入登录名"
+                required:  "请输入登录名",
+                maxlength:"姓名不能超过12位"
             },
             place:{
-                required: "请输入报名地点"
+                required: "请输入报名地点",
+                maxlength:"报名地址不能超过100个字"
+
             },
             type:{
                 required: "请选择类型"
             },
             fraction:{
-                required: "请输入分数"
+                required: "请输入分数",
+                maxlength:"分数不能超过5位"
             },
             state:{
-                equired: "请选择状态"
+                required: "请选择状态"
             },
             song:{
-                equired: "请输入歌曲"
+                required: "请输入歌曲",
+                maxlength:"歌曲不能超过20个字"
             }
 
 

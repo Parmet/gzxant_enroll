@@ -162,7 +162,9 @@ public class EnrollPersonnelController extends BaseController {
         for(EnrollEnter list:listEnter){
             enterIds.add(list.getId());
         }
-        enrollEnterService.deleteBatchIds(enterIds);
+        if(enterIds.size()>0){
+			enrollEnterService.deleteBatchIds(enterIds);
+		}
 
 		boolean success = enrollPersonnelService.deleteBatchIds(ids);
 		if (success) {
