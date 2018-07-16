@@ -73,13 +73,13 @@
                         $image.attr('src', "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1016502073,2105174218&fm=27&gp=0.jpg");
                     });*/
                     // $summernote.summernote('insertImage', "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1016502073,2105174218&fm=27&gp=0.jpg");
-                    //将第一张上传的图片放到image中
                     $summernote.summernote('insertImage', data.message.path + data.message.fileName);
+                    //将第一张上传的图片放到image中
                     var $img = $("#image");
                     if ($img.val() == "") {
                         $img.val(data.message.path + data.message.fileName);
                     }
-                    alert($img.val());
+                    // alert($img.val());
                 },
             });
         }
