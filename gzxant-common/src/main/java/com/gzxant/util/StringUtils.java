@@ -24,7 +24,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 正则表达式：验证手机号
      */
-    public static final String REGEX_MOBILE = "^[1]([3][0-9]{1}|59|58|88|85|89|66)[0-9]{8}$";
+    public static final String REGEX_MOBILE = "^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$";
     /**
      * 正则表达式：验证用户名
      */
@@ -485,7 +485,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     public static void main(String[] args) {
-        System.out.print(isMobile("16620069407"));
+
+        System.out.print(isMobile("15288899966"));
     }
 }
 

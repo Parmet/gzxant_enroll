@@ -13,13 +13,16 @@ import com.gzxant.util.PasswordUtils;
 import com.gzxant.util.ReturnDTOUtil;
 import com.gzxant.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.gzxant.service.personnel.IEnrollPersonnelService;
 import com.gzxant.service.enroll.enter.IEnrollEnterService;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -51,13 +54,13 @@ public class ApiController extends BaseController {
     /**
      * 报名接口
      *
-     * @param model
      * @param param
      * @return
      * @throws IOException
      */
     @RequestMapping(value = "/enroll", method = {RequestMethod.POST})
-    public ReturnDTO enroll(Model model, EnrollPersonnel param) throws IOException {
+    @Transactional(readOnly = false)
+    public ReturnDTO enroll(EnrollPersonnel param) {
         EnrollEnter enrollEnter = new EnrollEnter();
         if (param == null) {
             return new ReturnDTO(PARARM_FAIL, "参数不能为空");
@@ -83,17 +86,28 @@ public class ApiController extends BaseController {
             return new ReturnDTO(PARARM_FAIL, "报名地点不能为空");
         }
 
+        int count = enrollPersonnelService
+                .selectCount(Condition.create().eq("phone", param.getPhone()));
+        if (count > 0) {
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "您已报名，请勿重复报名，详情请咨询【唱响春天广东赛区】公众号");
+        }
+
+        count = orderService.selectCount(Condition.create().eq("openid", param.getOpenid()));
+        if (count > 0) {
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "同个微信号只能提交一次报名");
+        }
+
         param.setCreateId(Long.parseLong(param.getPhone()));
         param.setUpdateId(Long.parseLong(param.getPhone()));
         boolean isFlag=enrollPersonnelService.insertBean(param);
         if (!isFlag) {
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "报名失败，详情请咨询【唱响春天广东赛区】公众号");
         }
 
         enrollEnter.setPlace(param.getPlace());
         enrollEnter.setName(param.getName());
         enrollEnter.setType("缴费");
-        enrollEnter.setState("Y");
+        enrollEnter.setState("N");
         enrollEnter.setNumbers(param.getNumbers());
         enrollEnter.setCreateId(Long.parseLong(param.getPhone()));
         enrollEnter.setUpdateId(Long.parseLong(param.getPhone()));
@@ -108,18 +122,19 @@ public class ApiController extends BaseController {
         order.setUpdateId(Long.parseLong(param.getPhone()));
         boolean orderFlag=orderService.insert(order);
         if(!orderFlag){
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "生成订单失败!");
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "报名失败，详情请咨询【唱响春天广东赛区】公众号");
         }
 
         boolean isFlag1 = enrollEnterService.insertBean(enrollEnter);
         if (!isFlag1) {
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "系统繁忙，请重试");
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "报名失败，详情请咨询【唱响春天广东赛区】公众号");
         }
+
         return new ReturnDTO(RESULT_SUCCESS, "插入成功");
     }
 
     @RequestMapping(value = "/enroll/check/phone", method = {RequestMethod.GET})
-    public Boolean checkPhone(@RequestParam("phone") String phone){
+    public Boolean checkPhone(@RequestParam("phone") String phone) {
         if (StringUtils.isBlank(phone)
                 || !StringUtils.isMobile(phone)) {
             return false;
@@ -136,7 +151,6 @@ public class ApiController extends BaseController {
     /**
      * 登录接口
      *
-     * @param model
      * @param name
      * @param password
      * @return
@@ -144,15 +158,17 @@ public class ApiController extends BaseController {
      */
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
-    public ReturnDTO login(Model model, @RequestParam("name") String name, @RequestParam("password") String password) throws IOException {
+    public ReturnDTO login(@RequestParam("name") String name,
+                           @RequestParam("password") String password) {
         if (StringUtils.isEmpty(name)) {
             return new ReturnDTO(PARARM_FAIL, "用户名不能为空");
         }
-        if (StringUtils.isEmpty(password)||StringUtils.isPassword(password)) {
+        if (StringUtils.isEmpty(password)) {
             return new ReturnDTO(PARARM_FAIL, "密码不能为空");
         }
-        String md5password = PasswordUtils.entryptPassword(password);
-        EnrollPersonnel enrollPersonnel = enrollPersonnelService.login(name, md5password);
+
+//        String md5password = PasswordUtils.entryptPassword(password);
+        EnrollPersonnel enrollPersonnel = enrollPersonnelService.login(name, password);
         if (enrollPersonnel == null) {
             return new ReturnDTO(NOT_RESULT_SUCCESS, "用户名或密码错误");
         }
@@ -167,33 +183,40 @@ public class ApiController extends BaseController {
     /**
      * 参赛者管理信息
      *
-     * @param model
-     * @param numbers
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/enter/{numbers}", method = {RequestMethod.GET})
-    public ReturnDTO findbyIdEnterdate(Model model, @RequestParam("numbers") String numbers) throws IOException {
-        if (StringUtils.isEmpty(numbers)) {
+    @RequestMapping(value = "/enter/{id}", method = {RequestMethod.GET})
+    public ReturnDTO findbyIdEnterdate(@PathVariable("id") String id) {
+        if (StringUtils.isEmpty(id)) {
             return new ReturnDTO(PARARM_FAIL, "参数不能为空");
         }
-        EnrollEnter enrollEnter = enrollEnterService.findbyIdEnterdate(numbers);
-        if (enrollEnter == null) {
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "没有查到数据");
+
+        EnrollPersonnel person = enrollPersonnelService.selectById(id);
+        if (person == null || person.getId() == null) {
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "用户不存在");
         }
-        return new ReturnDTO(RESULT_SUCCESS, "成功", enrollEnter);
+
+        EnrollEnter enrollEnter = enrollEnterService.findbyIdEnterdate(person.getNumbers());
+        if (enrollEnter == null) {
+            return new ReturnDTO(NOT_RESULT_SUCCESS, "用户暂未报名");
+        }
+
+        Map map = new HashMap();
+        map.put("info", person);
+        map.put("enter", enrollEnter);
+        return new ReturnDTO(RESULT_SUCCESS, "成功", map);
     }
 
     /**
      * 不全参赛者管理信息
      *
-     * @param model
      * @param
      * @return
      * @throws IOException
      */
     @RequestMapping(value = "/allEnter", method = {RequestMethod.GET})
-    public ReturnDTO findbyALlEnterdate(Model model) throws IOException {
+    public ReturnDTO findbyALlEnterdate() {
         List<EnrollEnter> list = enrollEnterService.selectList(null);
         //返回数据到前端
         if (list == null) {

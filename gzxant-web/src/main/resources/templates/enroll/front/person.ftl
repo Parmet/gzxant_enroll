@@ -98,16 +98,16 @@
 	<div class="box row">
 		<img class="col-xs-12 col-sm-12 col-md-12" src="${rc.contextPath}/img/enroll/front/person/line.png" />
 		<span class="col-xs-6 col-sm-6 col-md-6 left-span">阶段：</span>
-		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="type">决赛</span>
+		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="type">-</span>
 		<img class="col-xs-12 col-sm-12 col-md-12" src="${rc.contextPath}/img/enroll/front/person/line.png" />
 		<span class="col-xs-6 col-sm-6 col-md-6 left-span">姓名：</span>
-		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="name">传过无神</span>
+		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="name">-</span>
 		<img class="col-xs-12 col-sm-12 col-md-12" src="${rc.contextPath}/img/enroll/front/person/line.png" />
 		<span class="col-xs-6 col-sm-6 col-md-6 left-span">得分：</span>
-		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="score">99.9</span>
+		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="score">-</span>
 		<img class="col-xs-12 col-sm-12 col-md-12" src="${rc.contextPath}/img/enroll/front/person/line.png" />
 		<span class="col-xs-6 col-sm-6 col-md-6 left-span">排名：</span>
-		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="sort">2</span>
+		<span class="col-xs-6 col-sm-6 col-md-6 right-span" id="sort">-</span>
 		<img class="col-xs-12 col-sm-12 col-md-12" src="${rc.contextPath}/img/enroll/front/person/line.png" />
 	</div>
 	<div class="bottom">
@@ -120,21 +120,36 @@
 	</div>-->
 </body>
 <script type="text/javascript">
-	var info_api = "${rc.contextPath}/api/enter/${id}}";
+	var info_api = "${rc.contextPath}/api/enter/${id}";
+	var return_url = "http://www.zhangyingchun.cn/gzxant/enroll/front/index";
 	$.get(info_api, {}, function(data){
 		if (validate.isNotEmpty(data)
 			&& data.hasOwnProperty("code")
 			&& data.code == 1000) {
-			var info = data.message;
-			$("#type").html(info.type);
-			$("#name").html(info.name);
-			$("#score").html(info.fraction);
-			$("#sort").html(info.sort);
-			if (info.state == "Y") {
-				$("#tip").html("恭喜晋级下一轮比赛");
+			var info = data.message.info;
+			var enter = data.message.enter;
+			var pay_api = "http://www.zhangyingchun.cn/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=" + info.openid;
+			$("#type").html(enter.type);
+			$("#name").html(enter.name);
+			$("#score").html(enter.fraction);
+			$("#sort").html(enter.sort);
+			if (enter.type == "缴费") {
+				$("#type").html("报名");
+				if (enter.state == "Y") {
+					$("#tip").html("报名成功");
+				} else {
+					$("#tip").html("<a href='" + pay_api + "'>对不起，您还未缴报名费</a>");
+				}
 			} else {
-				$("#tip").html("很遗憾，您未通过" + info.type);
+				if (enter.state == "Y") {
+					$("#tip").html("恭喜晋级下一轮比赛");
+				} else {
+					$("#tip").html("很遗憾，您未通过" + info.type);
+				}
 			}
+		} else {
+			alert(data.error);
+			window.location.href = return_url;
 		}
 	});
 </script>

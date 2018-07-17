@@ -4,7 +4,7 @@
 	<meta charset="utf-8"/>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no;">
 	<title>唱响春天</title>
 	<link rel="shortcut icon" href="${rc.contextPath}${gzxant.photo}">
 	<link href="${rc.contextPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
@@ -145,7 +145,7 @@
 		}
 
 		$.post(login_api, {
-			"account": $("#account").val(),
+			"name": $("#account").val(),
 			"password": $("#password").val()
 		}, function(data) {
 			if (validate.isNotEmpty(data)
@@ -153,7 +153,7 @@
 				&& data.code == 1000) {
 				window.location.href = "${rc.contextPath}/front/person/" + data.message.id;
 			} else {
-				layer.alert(data.error);
+				alert(data.error);
 			}
 		}).error(function(xhr, status, info) {
 			layer.msg("系统繁忙，请稍后重试");
@@ -161,5 +161,7 @@
     }
 </script>
 
+<script>
 
+</script>
 </html>

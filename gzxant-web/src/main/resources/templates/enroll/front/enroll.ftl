@@ -4,7 +4,7 @@
 	<meta charset="utf-8"/>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no;">
 	<title>唱响春天</title>
 	<link rel="shortcut icon" href="${rc.contextPath}${gzxant.photo}">
 	<link href="${rc.contextPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
@@ -129,8 +129,8 @@
 	</div>
 </body>
 <script type="text/javascript">
-	var return_url = "http://api.gzxant.com/gzxant/enroll/front/index";
-	var pay_api = "http://api.gzxant.com/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
+	var return_url = "http://www.zhangyingchun.cn/gzxant/enroll/front/index";
+	var pay_api = "http://www.zhangyingchun.cn/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
 	var enroll_api = "${rc.contextPath}/api/enroll";
 
 	var area = new LArea();
@@ -182,7 +182,7 @@
 				isMobile:"请输入正确的手机号码",
 				maxlength:"请输入11位的手机号码",
 				minlength:"请输入11位的手机号码",
-				remote: "手机号已存在"
+				remote: "该手机号已存在"
 			},
 			password:{
 				required:  "请输入密码",
@@ -363,7 +363,7 @@
 	// 手机号码验证
 	$.validator.addMethod("isMobile", function(value, element) {
 		var length = value.length;
-		var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})|(16[0-9]{9})$/;
+		var mobile = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
 		return this.optional(element) || (length == 11 && mobile.test(value));
 	}, "请正确填写您的手机号码");
 
@@ -391,10 +391,10 @@
 				//window.location.href = return_url;
 				window.location.href = pay_api;
 			} else {
-				layer.alert(data.error);
+				alert(data.error);
 			}
 		}).error(function(xhr, status, info) {
-			layer.msg("系统繁忙，请稍后重试");
+			layer.msg("报名失败，详情请咨询【唱响春天广东赛区】公众号");
 		});
     }
 
@@ -418,7 +418,5 @@
 
 
 </script>
-
-
 
 </html>
