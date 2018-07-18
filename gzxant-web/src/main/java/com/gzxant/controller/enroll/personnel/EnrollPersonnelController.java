@@ -104,13 +104,13 @@ public class EnrollPersonnelController extends BaseController {
 	/**
 	 * 检查用户名是否存在
 	 *
-	 * @param name
+	 * @param id
 	 * @return
 	 */
-	@GetMapping(value = "check/{id}")
+	@GetMapping(value = "checkphone/{id}")
 	@ResponseBody
-	public Boolean check(@PathVariable("id") Long id, @RequestParam("name") String name) {
-		return enrollPersonnelService.checkLoginName(name, id);
+	public Boolean check(@PathVariable("id") String id, @RequestParam("phone") String phone) {
+		return enrollPersonnelService.checkPhone(id, phone);
 	}
 	@ApiOperation(value = "添加参赛者信息", notes = "添加参赛者信息")
 	@PostMapping(value = "/insert")

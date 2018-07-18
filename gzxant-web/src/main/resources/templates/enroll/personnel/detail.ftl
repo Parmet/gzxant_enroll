@@ -10,7 +10,7 @@
                 <div class="">
                     <form class="form-horizontal form-bordered" id="gzxantForm">
                         <input type="hidden" name="id" value="${enrollPersonnel.id}"/>
-                        <div class="form-group">
+                        <div class="form-group" hidden="hidden">
                             <label class="col-sm-3 control-label">姓名：<span class="required">*</span></label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="name"
@@ -26,8 +26,21 @@
 
                             </div>
                         </div>
-
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">密码：<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input id="password" type="password" class="form-control" name="password"
+                                       value="${enrollPersonnel.password}"  placeholder="请输入密码"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">确认密码：<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="confirmpassword"
+                                       value="${enrollPersonnel.password}"  placeholder="请输入确认密码"/>
+                            </div>
+                        </div>
+                        <div class="form-group" hidden="hidden">
                             <label class="col-sm-3 control-label">身份证号码：<span class="required">*</span></label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="idCard"
@@ -119,15 +132,15 @@
         focusInvalid: true,
         rules: {
             name: {
-                required: true,
-                remote: '${rc.contextPath}/personnel/check/${enrollPersonnel.id}'
+                required: true
             },
             phone: {
                 required: true,
                 number:true,
                 isMobile:true,
                 maxlength:11,
-                maxlength:11
+                maxlength:11,
+                remote: '${rc.contextPath}/personnel/checkphone/${enrollPersonnel.id}'
             },
             place: {
                 required: true
@@ -135,32 +148,42 @@
              },
             password: {
                 required: true,
+                maxlength:20,
                 minlength:6
+            },
+            confirmpassword:{
+                required:true,
+                minlength: 6,
+                maxlength:20,
+                equalTo: "#password"
             },
             idCard: {
                 required: true,
                 idCard2:true
-            },
-            style: {
-                required: true
             }
         },
         messages: {
             name:{
                 required:  "请输入登录名",
-                remote: "用户名已经存在"
-
             },
             phone:{
                 required: "请输入手机号码",
                 number:"只能输入数字",
                 isMobile:"请输入正确的手机号码",
                 maxlength:"请输入11位的手机号码",
-                maxlength:"请输入11位的手机号码"
+                maxlength:"请输入11位的手机号码",
+                remote:"改手机号已经存在"
             },
             password:{
                 required:  "请输入密码",
+                maxlength:"密码不能大于20位数",
                 minlength:"密码不能小于6位数"
+            },
+            confirmpassword:{
+                required:  "请输入确认密码",
+                maxlength:"密码不能大于20位数",
+                minlength:"密码不能小于6位数",
+                equalTo: "两次输入密码不一致"
             },
             idCard: {
                 required:"请输入身份号码",
@@ -168,10 +191,8 @@
             },
             place:{
                  required:"请输入报名地址"
-             },
-            style:{
-                required:"请输入演唱风格"
-            }
+             }
+
         }
     });
 

@@ -12,14 +12,7 @@ import com.gzxant.entity.enroll.personnel.EnrollPersonnel;
  * @since 2018-07-06
  */
 public interface IEnrollPersonnelService extends IBaseService<EnrollPersonnel> {
-    /**
-     * 检测登录名是否重复
-     *
-     * @param name
-     * @param id
-     * @return
-     */
-    Boolean checkLoginName(String name, Long id) ;
+
 
     /**
      * 用户登录

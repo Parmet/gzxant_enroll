@@ -38,9 +38,7 @@
                                 <button type="button" class="btn btn-info" onclick="dt_insert()">
                                     <i class="fa fa-plus-square" aria-hidden="true"></i> 添加
                                 </button>
-                                <button type="button" class="btn btn-info" onclick="dt_import()">
-                                    <i class="fa fa-plus-square" aria-hidden="true"></i> 导入
-                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -112,7 +110,7 @@
         return c;
     }
 
-    load_data( getcolumns(), {"createDate": "desc"});
+    load_data( getcolumns(), {"createDate": "asc"});
 
     function dt_explort_buttont() {
         location.href=url + "excel";

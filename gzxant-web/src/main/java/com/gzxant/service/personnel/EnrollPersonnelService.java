@@ -60,22 +60,7 @@ public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, Enro
         return true;
     }
 
-    /**
-     * 检测登录名是否重复
-     *
-     * @param name
-     * @param id
-     * @return
-     */
-    @Override
-    public Boolean checkLoginName(String name, Long id) {
-        if(StringUtils.isEmpty(name)){
-            return null;
-        }
 
-        EnrollPersonnel enrollPersonnel = selectOne(Condition.create().eq("phone", name));
-        return enrollPersonnel == null || !id.equals(0L) && enrollPersonnel.getId().equals(id);
-    }
     /**
      * 登录
      *

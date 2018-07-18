@@ -102,7 +102,7 @@
         return c;
     }
 
-    load_data( getcolumns(), {"createDate": "desc"});
+    load_data( getcolumns(), {"createDate": "asc"});
 
     function dt_explort_buttont() {
         location.href=url + "excel";

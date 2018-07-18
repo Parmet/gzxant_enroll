@@ -12,8 +12,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">参赛编号：<span class="required">*</span></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="numbers"
-                                       value="" placeholder="参赛编号"/>
+                                <select name="type" class="form-control">
+                                    <option value="">请选择</option>
+
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -87,14 +89,6 @@
     function  cusFunction() {
         console.info("提交之前，最后执行自定义的函数");
     }
-
-
-        // // 手机号码验证
-        // $.validator.addMethod("isMobile", function(value, element) {
-        //         var length = value.length;
-        //     var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-        //          return this.optional(element) || (length == 11 && mobile.test(value));
-        //     }, "请正确填写您的手机号码");
 
 
     function infoNextStep() {

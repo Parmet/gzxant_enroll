@@ -27,8 +27,15 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">密码：<span class="required">*</span></label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" name="password"
-                                       value="" placeholder="请输入密码"/>
+                                <input id="password" type="password" class="form-control" name="password"
+                                        placeholder="请输入密码"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">确认密码：<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="confirmpassword"
+                                       placeholder="请输入确认密码"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -60,7 +67,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">演唱风格：<span class="required">*</span></label>
+                            <label class="col-sm-3 control-label">演唱风格：</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="style"
                                        value="" placeholder="请输入演唱风格"/>
@@ -135,15 +142,18 @@
             },
             password: {
                 required: true,
+                maxlength:20,
                 minlength:6
+            },
+            confirmpassword:{
+                required:true,
+                minlength: 6,
+                maxlength:20,
+                equalTo: "#password"
             },
             idCard: {
                 required: true,
                 idCard2:true
-            },
-            style: {
-                required: true,
-                maxlength:30
             }
         },
         messages: {
@@ -160,7 +170,14 @@
             },
             password:{
                 required:  "请输入密码",
+                maxlength:"密码不能大于20位数",
                 minlength:"密码不能小于6位数"
+            },
+            confirmpassword:{
+                required:  "请输入确认密码",
+                maxlength:"密码不能大于20位数",
+                minlength:"密码不能小于6位数",
+                equalTo: "两次输入密码不一致"
             },
             place:{
                 required: "请输入报名地点",
@@ -169,10 +186,6 @@
             idCard: {
                 required:"请输入身份号码",
                 idCard2:"请输入正确的身份号码"
-            },
-            style:{
-                required:"请输入演唱风格",
-                maxlength:"风格不能超过30个字"
             },
             profession:{
                 maxlength:"职业不能超过20个字"
