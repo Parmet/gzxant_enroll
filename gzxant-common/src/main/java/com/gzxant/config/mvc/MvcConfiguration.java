@@ -70,12 +70,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
-        FastJsonHttpMessageConverter fastJsonConverter = new FastJsonHttpMessageConverter();
+        /*FastJsonHttpMessageConverter fastJsonConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fjc = new FastJsonConfig();
         //1、序列化重点
         fjc.setSerializerFeatures(SerializerFeature.BrowserCompatible);
         fastJsonConverter.setFastJsonConfig(fjc);
-        converters.add(fastJsonConverter);
+        converters.add(fastJsonConverter);*/
     }
 
 }

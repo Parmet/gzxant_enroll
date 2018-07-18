@@ -6,7 +6,7 @@ package com.gzxant.entity.enroll.article.dto;
  */
 public class EnrollArticleDTO {
 
-    private Long id;
+    private String id;
 
     private String title;
 
@@ -16,11 +16,11 @@ public class EnrollArticleDTO {
 
     private String releaseDate;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

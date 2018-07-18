@@ -103,16 +103,18 @@ public class EnrollPersonnelService extends BaseService<EnrollPersonnelDao, Enro
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public boolean insertBean(EnrollPersonnel param) {
-        if (StringUtils.isEmpty(param.getName()) || StringUtils.isChinese(param.getName())) {
+        if (StringUtils.isEmpty(param.getName())) {
             return false;
         }
-        if (StringUtils.isEmpty(param.getPassword())||!StringUtils.isPassword(param.getPassword())) {
+        if (StringUtils.isEmpty(param.getPassword())) {
             return false;
         }
-        if (!StringUtils.isMobile(param.getPhone())||StringUtils.isEmpty(param.getPhone())) {
+        if (StringUtils.isEmpty(param.getPhone())
+                || !StringUtils.isMobile(param.getPhone())) {
             return false;
         }
-        if (!StringUtils.isIDCard(param.getIdCard())||StringUtils.isEmpty(param.getIdCard())) {
+        if (StringUtils.isEmpty(param.getIdCard())
+                || !StringUtils.isIDCard(param.getIdCard())) {
             return false;
         }
         if (StringUtils.isEmpty(param.getPlace())) {

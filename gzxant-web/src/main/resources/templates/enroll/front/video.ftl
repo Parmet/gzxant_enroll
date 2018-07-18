@@ -66,12 +66,6 @@
 			<li role="presentation"><a href="${rc.contextPath}/front/result">海选结果</a></li>
 		</ul>
 		<div class="article-box" id="video">
-			<div class="video-box">
-				<video src="movie.mp4" controls="controls">
-					您的浏览器不支持 video 播放。
-				</video>
-			</div>
-			<p style="text-align: center;">海选0001号选手</p>
 		</div>
 	</div>
 	<script>
@@ -85,7 +79,7 @@
 					let m = e.message;
                     for(var i = 0; i < m.length;i++)
                     {
-                        let video = "http://127.0.0.1"+m[i].vedioUrl;
+                        let video = "http://file.sitofang.top/" + m[i].vedioUrl;
                         let text = m[i].name;
                         $("#video").append("<div class=\"video-box\"><video src=\""+video+"\" controls=\"controls\">您的浏览器不支持 video 播放。</video></div><p style=\"text-align: center;\">"+text+"</p>");
                     }

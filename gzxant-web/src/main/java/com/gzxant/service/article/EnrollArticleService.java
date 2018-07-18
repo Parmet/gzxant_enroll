@@ -33,7 +33,7 @@ public class EnrollArticleService extends BaseService<EnrollArticleDao, EnrollAr
         if (enrollArticles != null) {
             for (EnrollArticle enrollArticle: enrollArticles) {
                 EnrollArticleDTO enrollArticleDTO = new EnrollArticleDTO();
-                enrollArticleDTO.setId(enrollArticle.getId());
+                enrollArticleDTO.setId(enrollArticle.getId().toString());
                 enrollArticleDTO.setTitle(enrollArticle.getName());
                 String subcontent = enrollArticle.getSubcontent();
                 if (subcontent.length() > 16) {

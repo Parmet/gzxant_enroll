@@ -63,6 +63,9 @@ public class EnrollVedioController {
     @PostMapping(value = "/insert")
     @ResponseBody
     public ReturnDTO create(EnrollVedio param) {
+        String path = param.getVedioUrl();
+        path = path.split("/var/file")[1];
+        param.setVedioUrl(path);
         enrollVedioService.insert(param);
         return ReturnDTOUtil.success();
     }
@@ -183,4 +186,5 @@ public class EnrollVedioController {
         List<EnrollVedio> enrollVedioList = enrollVedioService.selectList(null);
         return ReturnDTOUtil.success(enrollVedioList);
     }
+
 }

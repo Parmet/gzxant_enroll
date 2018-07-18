@@ -18,14 +18,29 @@ public class GzxantSysUser {
      * 取出Shiro中的当前用户LoginName.
      */
     public static String name() {
-        return ShiroUser().getName();
+        ShiroUser user = ShiroUser();
+        if (user != null && user.getId() != null) {
+            return ShiroUser().getName();
+        }
+
+        return "";
     }
     public static String photo() {
-        return ShiroUser().getPhoto();
+        ShiroUser user = ShiroUser();
+        if (user != null && user.getId() != null) {
+            return ShiroUser().getPhoto();
+        }
+
+        return "";
     }
 
     public static Long id() {
-        return ShiroUser().getId();
+        ShiroUser user = ShiroUser();
+        if (user != null && user.getId() != null) {
+            return ShiroUser().getId();
+        }
+
+        return 0L;
     }
 
     public static String loginName() {
@@ -35,11 +50,10 @@ public class GzxantSysUser {
     public static ShiroUser ShiroUser() {
     	Object obj = SecurityUtils.getSubject().getPrincipal();
     	ShiroUser user = null;
-    	if (obj instanceof com.gzxant.shiro.ShiroUser) {
+    	if (obj instanceof ShiroUser) {
     		user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	} else {
+    	} else if (obj != null) {
     		// 为什么会不能强转，因为不同类加载器，还是session不同导致的
-    		@SuppressWarnings("unchecked")
 			Map<String, Object> map = JsonUtil.stringToCollect(JsonUtil.toJSONString(obj));
     		Long id = Long.parseLong(String.valueOf(map.get("id")));
     		String username = String.valueOf(map.get("username"));
