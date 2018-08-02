@@ -45,7 +45,7 @@
                                                     $("#vedioUrl").val(result.message[0].url);
                                                    // $("#photo").val(result.message[0].s_url);
                                                     //$("#imgshowdiv").attr('src', result.message[0].s_url);
-                                                    layer.alert('上传成功'+result.message[0].url);
+                                                    layer.alert('上传成功');
                                                 });
                                                 this.on('error', function (a, errorMessage, result) {
                                                     if (!result) {

@@ -15,15 +15,25 @@
 
 	<style type="text/css">
 		body {
-			background:url(${rc.contextPath}/img/enroll/front/index.jpg) top center no-repeat;
+			background:url(${rc.contextPath}/img/enroll/front/index.png) top center no-repeat;
 			background-size:cover;
 		}
 
-		.btn-box {
+		img {
+			width: 100%;
+			margin-top: 35%;
+		}
+
+		/*.btn-box {
 			width: 9rem;
 			position: absolute;
 			bottom: 2rem;
 			right: 2rem;
+		}*/
+
+		.btn-box {
+			width: 70%;
+			margin: 5rem auto;
 		}
 
 		.btn-box a {
@@ -32,14 +42,16 @@
 			background: -moz-linear-gradient(#FED42F, #CC8E12); /* Firefox 3.6 - 15 */
 			background: linear-gradient(#FED42F, #CC8E12); /* 标准的语法 */
 			border-color: #CC8E12;
-			margin-bottom: 1rem;
+			color: #000;
+			margin-bottom: 3rem;
 		}
 	</style>
 </head>
 <body>
+	<img src="${rc.contextPath}/img/enroll/front/element.png" />
 	<div class="btn-box">
-		<a href="${rc.contextPath}/front/login" class="btn btn-info btn-block">登录</a>
-		<a href="${rc.contextPath}/front/wechat/authorize" class="btn btn-info btn-block">报名</a>
+		<a href="${rc.contextPath}/front/login" class="btn btn-info btn-lg btn-block">登录</a>
+		<a href="${rc.contextPath}/front/wechat/authorize" class="btn btn-info btn-lg btn-block">报名</a>
 		<!--<a href="${rc.contextPath}/front/enroll" class="btn btn-info btn-block">报名</a>-->
 	</div>
 </body>

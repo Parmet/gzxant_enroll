@@ -161,23 +161,24 @@ public class ApiController extends BaseController {
     public ReturnDTO login(@RequestParam("name") String name,
                            @RequestParam("password") String password) {
         if (StringUtils.isEmpty(name)) {
-            return new ReturnDTO(PARARM_FAIL, "用户名不能为空");
+            return ReturnDTOUtil.custom(PARARM_FAIL, "用户名不能为空");
         }
         if (StringUtils.isEmpty(password)) {
-            return new ReturnDTO(PARARM_FAIL, "密码不能为空");
+            return ReturnDTOUtil.custom(PARARM_FAIL, "密码不能为空");
         }
 
 //        String md5password = PasswordUtils.entryptPassword(password);
         EnrollPersonnel enrollPersonnel = enrollPersonnelService.login(name, password);
         if (enrollPersonnel == null) {
-            return new ReturnDTO(NOT_RESULT_SUCCESS, "用户名或密码错误");
+            return ReturnDTOUtil.custom(PARARM_FAIL, "用户名或密码错误");
         }
+
         //返回数据到前端
         EnrollPersonnel enrollPersonnel1Josn = new EnrollPersonnel();
         enrollPersonnel1Josn.setId(enrollPersonnel.getId());
         enrollPersonnel1Josn.setName(enrollPersonnel.getName());
         enrollPersonnel1Josn.setStyle(enrollPersonnel.getStyle());
-        return new ReturnDTO(RESULT_SUCCESS, "登录成功", enrollPersonnel1Josn);
+        return ReturnDTOUtil.custom(RESULT_SUCCESS, "登录成功", enrollPersonnel1Josn);
     }
 
     /**

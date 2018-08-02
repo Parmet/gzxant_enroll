@@ -17,8 +17,9 @@
 
 	<style type="text/css">
 		body {
-			background:url(${rc.contextPath}/img/enroll/front/index.jpg) top center no-repeat;
+			background:url(${rc.contextPath}/img/enroll/front/index.png) top center no-repeat;
 			background-size:cover;
+			text-align: center;
 		}
 
 		.btn-box {
@@ -28,15 +29,25 @@
 			right: 2rem;
 		}
 
-		.module {
-			z-index: -1;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: #000;
-			opacity: 0.5;
+		img {
+			width: 70%;
+			margin-top: 20%;
+		}
+
+		form {
+			width: 75%;
+			margin: 8rem auto;
+			color: white;
+		}
+
+		form button {
+			margin-top: 3rem;
+		}
+
+		.form-horizontal .control-label {
+			padding-top: 7px;
+			margin-bottom: 0;
+			text-align: right;
 		}
 
 		.box {
@@ -76,27 +87,22 @@
 	</style>
 </head>
 <body>
-	<div class="module"></div>
-	<div class="box">
-		<h3>登录</h3>
-		<form class="form-horizontal form-inline">
-			<div class="form-group">
-				<label for="account" class="col-xs-3 col-sm-3 col-md-3 control-label">帐号</label>
-				<div class="col-xs-9 col-sm-9 col-md-9">
-					<input type="number" class="form-control" name="account" id="account" placeholder="请输入手机号">
-				</div>
+	<img src="${rc.contextPath}/img/enroll/front/s_element.png" />
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="account" class="col-xs-3 col-sm-3 col-md-3 control-label">帐号</label>
+			<div class="col-xs-9 col-sm-9 col-md-9">
+				<input type="number" class="form-control" name="account" id="account" placeholder="请输入手机号">
 			</div>
-			<div class="form-group">
-				<label for="password" class="col-xs-3 col-sm-3 col-md-3 control-label">密码</label>
-				<div class="col-xs-9 col-sm-9 col-md-9">
-					<input type="password" class="form-control" id="password" maxlength="16" name="password" placeholder="请输入密码">
-				</div>
+		</div>
+		<div class="form-group">
+			<label for="password" class="col-xs-3 col-sm-3 col-md-3 control-label">密码</label>
+			<div class="col-xs-9 col-sm-9 col-md-9">
+				<input type="password" class="form-control" id="password" maxlength="16" name="password" placeholder="请输入密码">
 			</div>
-		</form>
-	</div>
-	<div class="col-xs-6 col-sm-6 col-md-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3">
-		<button class="btn btn-block btn-info" onclick="login();">确定</button>
-	</div>
+		</div>
+		<button class="btn btn-lg btn-block btn-info" onclick="login();">确定</button>
+	</form>
 </body>
 <script type="text/javascript">
 	 var login_api = "${rc.contextPath}/api/login";
@@ -156,7 +162,7 @@
 				alert(data.error);
 			}
 		}).error(function(xhr, status, info) {
-			layer.msg("系统繁忙，请稍后重试");
+			alert("系统繁忙，请稍后重试");
 		});
     }
 </script>

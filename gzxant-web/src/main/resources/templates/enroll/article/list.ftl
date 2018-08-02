@@ -54,6 +54,15 @@
                 width: 250,
             },
             {
+                field: 'image',
+                title: '主图',
+                formatter: function (value, row, index) {
+                    var html = '<img style="width: 50px" src="http://file.sitofang.top/'
+                        + value + '" onerror="javascript:errimg()" class="img_file img-rounded"/>';
+                    return html;
+                }
+            },
+            {
                 field: 'subcontent',
                 title: '文章内容',
             },
@@ -81,4 +90,9 @@
     function dt_explort_buttont() {
         location.href=url + "excel";
     }
+
+     function errimg() {
+        $("#imgshowdiv").attr('src', "${rc.contextPath}/img/log9.png");
+    }
+
 </script>

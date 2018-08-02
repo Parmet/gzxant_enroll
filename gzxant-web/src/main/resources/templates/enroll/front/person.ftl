@@ -17,7 +17,7 @@
 
 	<style type="text/css">
 		body {
-			background:url(${rc.contextPath}/img/enroll/front/person/background.png) top center no-repeat;
+			background:url(${rc.contextPath}/img/enroll/front/person/index.png) top center no-repeat;
 			background-size:cover;
 		}
 
@@ -121,14 +121,14 @@
 </body>
 <script type="text/javascript">
 	var info_api = "${rc.contextPath}/api/enter/${id}";
-	var return_url = "http://www.zhangyingchun.cn/gzxant/enroll/front/index";
+	var return_url = "http://cctv.17gaoshi.com/gzxant/enroll/front/index";
 	$.get(info_api, {}, function(data){
 		if (validate.isNotEmpty(data)
 			&& data.hasOwnProperty("code")
 			&& data.code == 1000) {
 			var info = data.message.info;
 			var enter = data.message.enter;
-			var pay_api = "http://www.zhangyingchun.cn/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=" + info.openid;
+			var pay_api = "http://cctv.17gaoshi.com/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=" + info.openid;
 			$("#type").html(enter.type);
 			$("#name").html(enter.name);
 			$("#score").html(enter.fraction);

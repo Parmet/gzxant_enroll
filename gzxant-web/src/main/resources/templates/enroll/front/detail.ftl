@@ -64,7 +64,7 @@
 		if (data.code == 200) {
 			data = data.message;
 			$("h3").html(data.title);
-			$(".img").attr("src", data.image);
+			$(".img").attr("src", "http://file.sitofang.top/" + data.image);
 			$(".foot").html(data.content);
 		}
 	});

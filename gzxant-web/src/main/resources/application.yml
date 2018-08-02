@@ -63,6 +63,6 @@ wechat:
   mchId: 1509328281
   mchKey: smallant6AHSE858d4FUI4fZVyhUFlvC
   keyPath: \app\config\apiclient_cert.p12
-  notifyUrl: http://www.zhangyingchun.cn/gzxant/enroll/api/notify
-  openIdReturnUrl: http://www.zhangyingchun.cn/gzxant/enroll/front/enroll
-  openIdUrl: http://www.zhangyingchun.cn/gzxant/enroll/front/wechat/userinfo
+  notifyUrl: http://cctv.17gaoshi.com/gzxant/enroll/api/notify
+  openIdReturnUrl: http://cctv.17gaoshi.com/gzxant/enroll/front/enroll
+  openIdUrl: http://cctv.17gaoshi.com/gzxant/enroll/front/wechat/userinfo

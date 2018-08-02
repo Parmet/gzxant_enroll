@@ -20,8 +20,30 @@
 	<link rel="stylesheet" href="${rc.contextPath}/plugins/LArea/css/LArea.css" />
 	<style type="text/css">
 		body {
-			background:url(${rc.contextPath}/img/enroll/front/index.jpg) top center no-repeat;
+			background:url(${rc.contextPath}/img/enroll/front/index.png) top center no-repeat;
 			background-size:cover;
+			text-align: center;
+		}
+
+		img {
+			width: 70%;
+			margin-top: 20%;
+		}
+
+        form {
+			width: 75%;
+			margin: 5rem auto;
+			color: white;
+		}
+
+        .form-horizontal .control-label {
+			padding-top: 7px;
+			margin-bottom: 0;
+			text-align: right;
+		}
+
+		form button {
+			margin-top: 3rem;
 		}
 
 		.btn-box {
@@ -62,75 +84,75 @@
 	</style>
 </head>
 <body>
-	<div class="box">
-		<form class="form-horizontal form-inline">
-			<div class="form-group">
-				<label for="place" class="col-xs-4 col-sm-4 col-md-4 control-label">地区</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" readonly="" name="place" id="place" placeholder="请选择地区 ">
-					<input type="hidden" name="portId" id="portId"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="name" class="col-xs-4 col-sm-4 col-md-4 control-label">姓名</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" name="name" id="name" placeholder="请输入姓名">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="idCard" class="col-xs-4 col-sm-4 col-md-4 control-label">身份证号</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" name="idCard" id="idCard" placeholder="请输入身份证号">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="company" class="col-xs-4 col-sm-4 col-md-4 control-label">工作单位</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" name="company" id="company" placeholder="请输入工作单位">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="profession" class="col-xs-4 col-sm-4 col-md-4 control-label">职位</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" name="profession" id="profession" placeholder="请输入职业">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="style" class="col-xs-4 col-sm-4 col-md-4 control-label">演唱风格</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="text" class="form-control" name="style" id="style" placeholder="请输入演唱风格">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="phone" class="col-xs-4 col-sm-4 col-md-4 control-label">手机号</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="number" class="form-control" name="phone" id="phone" placeholder="请输入手机号">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="col-xs-4 col-sm-4 col-md-4 control-label">密码</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="confirmPassword" class="col-xs-4 col-sm-4 col-md-4 control-label">确认密码</label>
-				<div class="col-xs-8 col-sm-8 col-md-8">
-					<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="请输入密码">
-				</div>
-			</div>
-			<div class="row">
-				<label class="col-xs-12 col-sm-12 col-md-12">备注：本次活动须支付报名费<span style="color:red;">100.00</span>元</label>
-			</div>
-		</form>
-	</div>
-	<div class="col-xs-6 col-sm-6 col-md-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3">
-		<button class="btn btn-block btn-info" onclick="payAndSubmit();">报名并支付</button>
-	</div>
+    <img src="${rc.contextPath}/img/enroll/front/s_element.png" />
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="place" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                <span>地</span>
+                <span>区</span>
+            </label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="text" class="form-control" readonly="" name="place" id="place" placeholder="请选择地区 ">
+                <input type="hidden" name="portId" id="portId"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-xs-4 col-sm-4 col-md-4 control-label">姓名</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="text" class="form-control" name="name" id="name" placeholder="请输入姓名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="idCard" class="col-xs-4 col-sm-4 col-md-4 control-label">身份证号</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="text" class="form-control" name="idCard" id="idCard" placeholder="请输入身份证号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="company" class="col-xs-4 col-sm-4 col-md-4 control-label">工作单位</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="text" class="form-control" name="company" id="company" placeholder="请输入工作单位">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="profession" class="col-xs-4 col-sm-4 col-md-4 control-label">职位</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="text" class="form-control" name="profession" id="profession" placeholder="请输入职业">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="style" class="col-xs-4 col-sm-4 col-md-4 control-label">演唱风格</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="text" class="form-control" name="style" id="style" placeholder="请输入演唱风格">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-xs-4 col-sm-4 col-md-4 control-label">手机</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="number" class="form-control" name="phone" id="phone" placeholder="请输入手机号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-xs-4 col-sm-4 col-md-4 control-label">密码</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" class="col-xs-4 col-sm-4 col-md-4 control-label">确认密码</label>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-xs-12 col-sm-12 col-md-12">备注：本次活动须支付报名费<span style="color:red;">100.00</span>元</label>
+        </div>
+        <button class="btn btn-block btn-info" onclick="payAndSubmit();">报名并支付</button>
+    </form>
 </body>
 <script type="text/javascript">
-	var return_url = "http://www.zhangyingchun.cn/gzxant/enroll/front/index";
-	var pay_api = "http://www.zhangyingchun.cn/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
+	var return_url = "http://cctv.17gaoshi.com/gzxant/enroll/front/index";
+	var pay_api = "http://cctv.17gaoshi.com/gzxant/enroll/api/pay?returnUrl=" + return_url + "&openid=${openid}";
 	var enroll_api = "${rc.contextPath}/api/enroll";
 
 	var area = new LArea();
@@ -161,6 +183,9 @@
                 minlength:11,
                 remote: '${rc.contextPath}/api/enroll/check/phone'
             },
+            style: {
+            	required: true
+            },
             password: {
                 required: true,
                 minlength:6,
@@ -184,6 +209,9 @@
 				minlength:"请输入11位的手机号码",
 				remote: "该手机号已存在"
 			},
+            style: {
+            	required: "请输入演唱风格"
+            },
 			password:{
 				required:  "请输入密码",
 				minlength: "密码不能小于6位数",

@@ -81,7 +81,7 @@
 		var html = "";
 		$.each(data.message, function(index, item) {
 			html = html + '<li class="list-group-item row" onclick="detail(\'' + item.id + '\')">';
-			html = html + '<div class="col-xs-4 col-sm-4 col-md-4"><img src="' + item.image + '" /></div>';
+			html = html + '<div class="col-xs-4 col-sm-4 col-md-4"><img src="http://file.sitofang.top/' + item.image + '" /></div>';
 			html = html + '<div class="col-xs-8 col-sm-8 col-md-8">';
 			html = html + '<p style="font-weight: bold; font-size: 12px;">' + item.title + '</p>';
 			html = html + '<p style="font-size: 10px;">' + item.content + '......</p>';
